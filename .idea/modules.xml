@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/casualcaving.iml" filepath="$PROJECT_DIR$/.idea/modules/casualcaving.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/casualcaving_main.iml" filepath="$PROJECT_DIR$/.idea/modules/casualcaving_main.iml" group="casualcaving" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/casualcaving_test.iml" filepath="$PROJECT_DIR$/.idea/modules/casualcaving_test.iml" group="casualcaving" />
+    </modules>
+  </component>
+</project>

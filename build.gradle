@@ -1,0 +1,17 @@
+plugins {
+    id 'java'
+    id "com.github.johnrengelman.shadow" version "4.0.2"
+}
+apply plugin: 'application'
+group 'com.casualcaving'
+version 'Version 0.0.8 11-2018'
+mainClassName = 'CasualCaving.Frame'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+}
