@@ -27,6 +27,9 @@ public class Level3 {
     }
 
     void level3(Graphics g, Graphics2D g2d){
-
+        switch(subPhase){
+            case 0:
+                break;
+        }
     }
 }
