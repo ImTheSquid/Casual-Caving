@@ -1,8 +1,11 @@
 package CasualCaving;
 
 import javax.swing.*;
+import javax.xml.bind.DatatypeConverter;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -322,8 +325,18 @@ public class CasualCaving extends JPanel{
                         entry += c;
                     }
                 }
-                final String debugPassword="TifIndustries";//TifIndustries
-                if(entry.equals(debugPassword)){
+                final String dP="e09dd51b8cb7a1d48ca0f563b8fdc693";
+                String x;
+                try {
+                    MessageDigest messageDigest=MessageDigest.getInstance("MD5");
+                    messageDigest.update(entry.getBytes());
+                    byte[] d=messageDigest.digest();
+                    x= DatatypeConverter.printHexBinary(d).toLowerCase();
+                } catch (NoSuchAlgorithmException e) {
+                    e.printStackTrace();
+                    x="";
+                }
+                if(x.equals(dP)){
                     debugUnlocked=true;
                 }else{
                     JOptionPane.showMessageDialog(null,"Incorrect Password","Error",JOptionPane.ERROR_MESSAGE);
