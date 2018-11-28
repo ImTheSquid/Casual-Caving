@@ -1,7 +1,6 @@
 package CasualCaving;
 
 import javax.swing.*;
-import javax.xml.bind.DatatypeConverter;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.security.MessageDigest;
@@ -326,17 +325,20 @@ public class CasualCaving extends JPanel{
                     }
                 }
                 final String dP="e09dd51b8cb7a1d48ca0f563b8fdc693";
-                String x;
+                StringBuilder x=new StringBuilder();
+                byte[] d={};
                 try {
                     MessageDigest messageDigest=MessageDigest.getInstance("MD5");
                     messageDigest.update(entry.getBytes());
-                    byte[] d=messageDigest.digest();
-                    x= DatatypeConverter.printHexBinary(d).toLowerCase();
+                    d=messageDigest.digest();
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
-                    x="";
                 }
-                if(x.equals(dP)){
+                for(byte b:d){
+                    x.append(String.format("%02x", b & 0xff));
+                }
+                System.out.println(x.toString());
+                if(x.toString().equals(dP)){
                     debugUnlocked=true;
                 }else{
                     JOptionPane.showMessageDialog(null,"Incorrect Password","Error",JOptionPane.ERROR_MESSAGE);

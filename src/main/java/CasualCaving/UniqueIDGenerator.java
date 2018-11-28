@@ -1,6 +1,5 @@
 package CasualCaving;
 
-import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -23,8 +22,12 @@ class UniqueIDGenerator {
         String data=input.toString();
         try {
             MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
-            byte hash[]=messageDigest.digest(data.getBytes(StandardCharsets.UTF_8));
-            return DatatypeConverter.printHexBinary(hash);
+            byte[] hash=messageDigest.digest(data.getBytes(StandardCharsets.UTF_8));
+            StringBuilder stringBuilder=new StringBuilder();
+            for(byte b:hash){
+                stringBuilder.append(String.format("%02x", b & 0xff));
+            }
+            return stringBuilder.toString();
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
