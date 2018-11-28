@@ -19,6 +19,7 @@ import static java.awt.event.KeyEvent.VK_P;
  */
 
 public class CasualCaving extends JPanel{
+    private HeightMap heightMap=new HeightMap();
     private UniqueIDGenerator uniqueIDGenerator=new UniqueIDGenerator();
     private Crowd crowd=new Crowd();
     private BattleHandler battleHandler=new BattleHandler(this);
@@ -27,7 +28,7 @@ public class CasualCaving extends JPanel{
     private Player p=new Player(battleHandler);
     private Level1 l1=new Level1(tc.getFade(),p,crowd);
     private Level2 l2=new Level2(tc.getFade(),p);
-    private Level3 l3=new Level3(tc.getFade(),p,uniqueIDGenerator);
+    private Level3 l3=new Level3(tc.getFade(),p,uniqueIDGenerator,heightMap);
     private Object[] la={l1,l2,l3};
     private Timer fade=tc.getFade();
     static int phase=0;//Changes what is drawn on screen
@@ -65,7 +66,6 @@ public class CasualCaving extends JPanel{
     static boolean onObject=false;
     static int newGround=0;
     static boolean levelEnd=true;
-
     static float qe=0;
     static boolean qeChoice=false;
     static boolean l2b6FadeDone=false;
@@ -149,7 +149,7 @@ public class CasualCaving extends JPanel{
             g.fillRect(0,0,10+Math.max(g.getFontMetrics(consolas).stringWidth("Level:"+(phase-2)+" Subphase: "+subPhase),g.getFontMetrics(consolas).stringWidth("Player X:"+p.getPlayerX()+" Y:"+p.getPlayerY())),10+g.getFontMetrics(consolas).getHeight()*2);
             g.setFont(consolas);
             g.setColor(Color.white);
-            g.drawString("Player X:"+p.getPlayerX()+" Y:"+p.getPlayerY(),5,25);
+            g.drawString("Player X:"+p.getPlayerX()+" Y:"+(p.getPlayerY()+p.getPlayerHitbox().getHeight()),5,25);
             g.drawString("Level:"+(phase-2)+" Subphase:"+subPhase,5,25+g.getFontMetrics(consolas).getHeight());
         }else if(debug&&phase==1){
             g.setFont(consolas);
