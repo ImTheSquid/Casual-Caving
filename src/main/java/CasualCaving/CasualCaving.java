@@ -3,24 +3,21 @@ package CasualCaving;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import static java.awt.event.KeyEvent.VK_ENTER;
-import static java.awt.event.KeyEvent.VK_ESCAPE;
-import static java.awt.event.KeyEvent.VK_P;
+import static java.awt.event.KeyEvent.*;
 
 /**
  * This is the main control class and interfaces with all of the other classes to make the game work
  */
 
 public class CasualCaving extends JPanel{
+    private Hash hash=new Hash();
     private HeightMap heightMap=new HeightMap();
-    private UniqueIDGenerator uniqueIDGenerator=new UniqueIDGenerator();
+    private UniqueIDGenerator uniqueIDGenerator=new UniqueIDGenerator(hash);
     private Crowd crowd=new Crowd();
     private BattleHandler battleHandler=new BattleHandler(this);
     private TimerControl tc=new TimerControl(crowd,battleHandler);
@@ -325,20 +322,7 @@ public class CasualCaving extends JPanel{
                     }
                 }
                 final String dP="e09dd51b8cb7a1d48ca0f563b8fdc693";
-                StringBuilder x=new StringBuilder();
-                byte[] d={};
-                try {
-                    MessageDigest messageDigest=MessageDigest.getInstance("MD5");
-                    messageDigest.update(entry.getBytes());
-                    d=messageDigest.digest();
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                }
-                for(byte b:d){
-                    x.append(String.format("%02x", b & 0xff));
-                }
-                System.out.println(x.toString());
-                if(x.toString().equals(dP)){
+                if(hash.md5(entry).equals(dP)){
                     debugUnlocked=true;
                 }else{
                     JOptionPane.showMessageDialog(null,"Incorrect Password","Error",JOptionPane.ERROR_MESSAGE);

@@ -1,8 +1,5 @@
 package CasualCaving;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /**
@@ -10,8 +7,9 @@ import java.util.ArrayList;
  */
 
 class UniqueIDGenerator {
+    private Hash hash;
     private ArrayList<Integer> knownHashes=new ArrayList<>();
-    UniqueIDGenerator(){}
+    UniqueIDGenerator(Hash hash){this.hash=hash;}
 
     String generateHash(){
         Integer input=(int)(Math.random()*123867)+4;//Can be any random number generator
@@ -19,18 +17,6 @@ class UniqueIDGenerator {
             input=(int)(Math.random()*123867)+4;
         }
         knownHashes.add(input);
-        String data=input.toString();
-        try {
-            MessageDigest messageDigest=MessageDigest.getInstance("SHA-256");
-            byte[] hash=messageDigest.digest(data.getBytes(StandardCharsets.UTF_8));
-            StringBuilder stringBuilder=new StringBuilder();
-            for(byte b:hash){
-                stringBuilder.append(String.format("%02x", b & 0xff));
-            }
-            return stringBuilder.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return null;
+        return hash.md5(input.toString());
     }
 }
