@@ -6,6 +6,7 @@ import java.awt.*;
 import static CasualCaving.CasualCaving.*;
 
 class BlueGolem {
+    private HeightMap heightMap;
     private int posX;
     private int posY;
     private String uniqueID;
@@ -23,14 +24,27 @@ class BlueGolem {
     private boolean firstFrame=true;//Controls whether to start at first frame after being still
     private int frameWait=0;//Controls how long to stay on each frame
     private final int frameWaitMax=3;
-    BlueGolem(int spawnX,int spawnY,String ID){
+    BlueGolem(int spawnX,int spawnY,String ID,HeightMap heightMap){
         posX=spawnX;
         posY=spawnY;
         uniqueID=ID;
+        this.heightMap=heightMap;
     }
 
     void golemAI(Graphics g){
+        golemHitbox=new Rectangle(posX,posY,blueGolem[0][0].getIconWidth(),blueGolem[0][0].getIconHeight());
+        golemPhysics();
         drawGolem(g);
+    }
+    private void golemPhysics(){
+        if(heightMap.onGround(golemHitbox)){
+            velY=0;
+        }else{
+            velY=9;
+        }
+        posX+=velX;
+        posY+=velY;
+        velY+=gravity;
     }
     private void drawGolem(Graphics g){
         int frameType=3;//3 if normal walking, 4 for attack animation

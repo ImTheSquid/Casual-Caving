@@ -2,8 +2,12 @@ package CasualCaving;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import static CasualCaving.CasualCaving.*;
+import static CasualCaving.Frame.j;
 
 public class Level3 {
     private Timer fade;
@@ -11,6 +15,7 @@ public class Level3 {
     private UniqueIDGenerator uniqueIDGenerator;
     private HeightMap heightMap;
     private final int[][] heights={{}};
+    private ArrayList<BlueGolem> testSet=new ArrayList<>();
     Level3(Timer f,Player p,UniqueIDGenerator uniqueIDGenerator,HeightMap heightMap){
         fade=f;
         this.p=p;
@@ -39,10 +44,15 @@ public class Level3 {
             case 1:
                 break;
         }
+        j.repaint();
     }
 
     private void l3b1(Graphics g){
         int[][] hm={{0,-1}};
         heightMap.setHeights(hm);
+        if(testSet.size()==0){
+            testSet.add(new BlueGolem(0,0,uniqueIDGenerator.generateHash(),heightMap));
+        }
+        testSet.get(0).golemAI(g);
     }
 }
