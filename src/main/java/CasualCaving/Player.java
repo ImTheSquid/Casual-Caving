@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import static CasualCaving.CasualCaving.*;
 
 class Player {
+    private HeightMap heightMap;
     private CavingLoader cl=new CavingLoader();
     private ImageIcon[][] harold=cl.getHarold();
     private BattleHandler battleHandler;
@@ -24,10 +25,12 @@ class Player {
     private boolean frameDir=true;
     private boolean firstFrame=false;
     private int frameWait=0;
+    private boolean jump=false;
     private Rectangle playerHitbox=new Rectangle((int)playerX,(int)playerY,harold[0][0].getIconWidth(),harold[0][0].getIconHeight());
-    Player(BattleHandler battleHandler){
+    Player(BattleHandler battleHandler,HeightMap heightMap){
         this.battleHandler=battleHandler;
         pickaxe=new Pickaxe(battleHandler,this);
+        this.heightMap=heightMap;
     }
     void reset(){
         playerX= Frame.panelX-200-harold[0][0].getIconWidth();
@@ -145,14 +148,10 @@ class Player {
             playerX = Frame.panelX - harold[0][0].getIconWidth();
         }
         //Y position
-        if (playerY > 360&&!onObject) {
-            playerY = 360;
+        if (heightMap.onGround(playerHitbox)&&!jump) {
+            //playerY = 360;
             velocityY = 0;
-            onGround = true;
-        }else if(playerY+harold[0][0].getIconHeight()>newGround&&onObject){//Standing on objects
-            playerY=newGround-harold[0][0].getIconHeight();
-            velocityY=0;
-            onGround=true;
+            jump=false;
         }
         if(((!(phase==2&&subPhase>=6))&&(!(phase==3&&subPhase==0)))&&lights) {
             drawPlayer(g);
@@ -238,13 +237,15 @@ class Player {
     }
 
     void jump(){
-        if(onGround) {
+        playerY-=2;
+        if(heightMap.onGround(playerHitbox)) {
             velocityY = -12;
-            onGround=false;
+            jump=true;
         }
     }
 
     void jumpEnd(){
+        jump=false;
         if(velocityY<-6.0f){
             velocityY=-6.0f;
         }

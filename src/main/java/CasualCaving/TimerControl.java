@@ -5,8 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 
-import static CasualCaving.Frame.j;
 import static CasualCaving.CasualCaving.*;
+import static CasualCaving.Frame.j;
 
 /**
  * This section creates and manages the timer that controls all of the fading and physics calculations through the game
@@ -18,7 +18,7 @@ class TimerControl {
     private boolean logo=true;//done with the logo?
     private int lWait=0;//Deals with first wait of logo
     private Crowd cr;
-    TimerControl(Crowd c,BattleHandler battleHandler){cr=c; p=new Player(battleHandler);}
+    TimerControl(Crowd c,Player p){cr=c; this.p=p;}
     private ActionListener fadeListen=new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {

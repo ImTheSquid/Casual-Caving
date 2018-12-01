@@ -20,17 +20,42 @@ class HeightMap {
             return false;
         }
         boolean singleHeight = heights.length == 1;
-        for (int[] height : heights) {
-            if ((height[0] > r.getX() && height[0] < r.getX() + r.getWidth())||(singleHeight)) {//Checks to see whether there is an object below the entity
-                System.out.println("HEIGHT:"+height[1]);
-                if(height[1]==-1){
-                    if(r.getY()+r.getHeight()>620){
+        for (int i=0;i<heights.length;i++) {
+            if ((r.getX()>=heights[i][0] )||(singleHeight)) {//Checks to see whether there is an object below the entity
+                if(heights.length>i+1){
+                    System.out.println(heights[i+1][0]+" "+(r.getWidth()+r.getX()));
+                }
+                if((heights.length>i+1&&r.getX()+r.getWidth()<=heights[i+1][0])&&!singleHeight){
+                    System.out.println("EXEC");
+                    if(heights[i][1]==-1){
+                        if((int)(r.getY())+(int)(r.getHeight())>=620){
+                            return true;
+                        }
+                    }else if(heights[i][1]==-2){
+                        return false;
+                    }else if(r.getY() + r.getHeight() >= heights[i][1]){
                         return true;
                     }
-                }else if(height[1]==-2){
-                    return false;
-                }else if(r.getY() + r.getHeight() == height[1]){
-                    return true;
+                }else if(i>0&&!singleHeight&&r.getX()>heights[i-1][0]){
+                    if(heights[i][1]==-1){
+                        if((int)(r.getY())+(int)(r.getHeight())>=620){
+                            return true;
+                        }
+                    }else if(heights[i][1]==-2){
+                        return false;
+                    }else if(r.getY() + r.getHeight() == heights[i][1]){
+                        return true;
+                    }
+                }else if(singleHeight){
+                    if(heights[i][1]==-1){
+                        if((int)(r.getY())+(int)(r.getHeight())>=620){
+                            return true;
+                        }
+                    }else if(heights[i][1]==-2){
+                        return false;
+                    }else if(r.getY() + r.getHeight() == heights[i][1]){
+                        return true;
+                    }
                 }
             }
         }
