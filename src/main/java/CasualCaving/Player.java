@@ -90,7 +90,9 @@ class Player {
         }
         //If statements for setting whether going back is an option
         boolean spDec=true;//Subphase decrease allowed
-        if(subPhase==5&&phase==3){
+        if(subPhase==0) {
+            spDec=false;
+        }else if(subPhase==5&&phase==3){
             spDec=false;
         }else if((subPhase==1||subPhase>=5)&&phase==2){
             spDec=false;
