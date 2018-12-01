@@ -34,10 +34,15 @@ class Level1 {
         bridgeBuilt=false;
     }
     void level1(Graphics g, Graphics2D g2d){//Handles drawing level 1
-        if(subPhase==2||subPhase==8){
+        if(subPhase==2||subPhase==6){
             if(subPhase==2){
-                int[][] x={{0,-1},{Frame.panelX-300,520},{Frame.panelX-300+log.getIconWidth(),-1}};
-                heightMap.setHeights(x);
+                if(logVisible){
+                    int[][] x={{0,-1},{Frame.panelX-300,520},{Frame.panelX-300+log.getIconWidth(),-1}};
+                    heightMap.setHeights(x);
+                }else{
+                    int[][] x={{0,-1}};
+                    heightMap.setHeights(x);
+                }
             }else{
                 int[][] x={{0,-1},{15,530},{15+tents[0].getIconWidth(),-1}};
                 heightMap.setHeights(x);

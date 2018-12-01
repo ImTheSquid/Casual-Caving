@@ -33,7 +33,7 @@ public class Frame {
         j.addKeyListener(new kl());
         j.addMouseListener(new ml());
         console=new JFrame("Casual Caving Console");
-        console.setResizable(false);
+        console.setResizable(true);
         console.setMinimumSize(new Dimension(600,600));
         console.setVisible(false);
         jTextArea=new JTextArea(24,100);

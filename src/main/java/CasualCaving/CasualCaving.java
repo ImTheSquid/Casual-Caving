@@ -20,9 +20,9 @@ public class CasualCaving extends JPanel{
     private UniqueIDGenerator uniqueIDGenerator=new UniqueIDGenerator(hash);
     private Crowd crowd=new Crowd();
     private BattleHandler battleHandler=new BattleHandler(this);
-    private TimerControl tc=new TimerControl(crowd,battleHandler);
+    private Player p=new Player(battleHandler,heightMap);
+    private TimerControl tc=new TimerControl(crowd,p);
     private CavingLoader cl=new CavingLoader();
-    private Player p=new Player(battleHandler);
     private Level1 l1=new Level1(tc.getFade(),p,crowd,heightMap);
     private Level2 l2=new Level2(tc.getFade(),p,heightMap);
     private Level3 l3=new Level3(tc.getFade(),p,uniqueIDGenerator,heightMap);
