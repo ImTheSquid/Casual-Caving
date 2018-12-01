@@ -1,13 +1,23 @@
 package CasualCaving;
 
 import javax.swing.*;
-import java.awt.event.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 
 public class Frame {
     private static CasualCaving c;
     final static int panelX=1280;
     final static int panelY=720;
     static JFrame j;
+    static JFrame console;
+    static ConsoleOut co=new ConsoleOut();
+    static JTextArea jTextArea;
     public static void main(String[] args) {
         CavingLoader cl=new CavingLoader();
         ImageIcon titleIcon=cl.getTitleIcon();
@@ -22,6 +32,25 @@ public class Frame {
         j.setVisible(true);
         j.addKeyListener(new kl());
         j.addMouseListener(new ml());
+        console=new JFrame("Casual Caving Console");
+        console.setResizable(false);
+        console.setMinimumSize(new Dimension(600,600));
+        console.setVisible(false);
+        jTextArea=new JTextArea(24,100);
+        JScrollPane jsp=new JScrollPane(jTextArea);
+        jsp.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        jTextArea.setLineWrap(true);
+        jTextArea.setEditable(false);
+        jTextArea.setFont(new Font(Font.MONOSPACED,Font.PLAIN,12));
+        PrintStream ps=new PrintStream(new OutputStream() {
+            @Override
+            public void write(int b) throws IOException {
+                jTextArea.append(String.valueOf((char)b));
+            }
+        });
+        System.setOut(ps);
+        System.setErr(ps);
+        console.add(jsp);
     }
 
     public static class kl implements KeyListener{
