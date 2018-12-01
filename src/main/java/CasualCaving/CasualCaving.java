@@ -142,10 +142,12 @@ public class CasualCaving extends JPanel{
                 break;
         }
         if(debug&&phase>1){
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.25f));
             g.setColor(Color.black);
             g.fillRect(0,0,10+Math.max(g.getFontMetrics(consolas).stringWidth("Level:"+(phase-2)+" Subphase: "+subPhase),g.getFontMetrics(consolas).stringWidth("Player X:"+p.getPlayerX()+" Y:"+p.getPlayerY())),10+g.getFontMetrics(consolas).getHeight()*2);
             g.setFont(consolas);
             g.setColor(Color.white);
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
             g.drawString("Player X:"+p.getPlayerX()+" Y:"+(p.getPlayerY()+p.getPlayerHitbox().getHeight()),5,25);
             g.drawString("Level:"+(phase-2)+" Subphase:"+subPhase,5,25+g.getFontMetrics(consolas).getHeight());
         }else if(debug&&phase==1){
@@ -356,6 +358,12 @@ public class CasualCaving extends JPanel{
             key.remove(VK_P);
             acf[phase-2]=1;
             repaint();
+        }
+        if(key.contains(VK_C)){
+            key.remove(VK_C);
+            System.out.println(Frame.console.isVisible());
+            Frame.jTextArea.setText("");
+            Frame.console.setVisible(true);
         }
         if(key.contains(VK_ESCAPE)&&phase==1){
             System.exit(0);
