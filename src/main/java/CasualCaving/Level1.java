@@ -8,6 +8,7 @@ import static CasualCaving.Frame.j;
 import static java.awt.event.KeyEvent.VK_E;
 
 class Level1 {
+    private HeightMap heightMap;
     private Timer fade;
     private CavingLoader cl=new CavingLoader();
     private Player p;
@@ -26,13 +27,25 @@ class Level1 {
     private boolean bridgeBuilt=false;
     private Rectangle logHitbox=new Rectangle(Frame.panelX-320,520,log.getIconWidth(),log.getIconHeight());
     private static boolean readyToFade6=false;
-    Level1(Timer f,Player p,Crowd crowd){fade=f;this.p=p;this.crowd=crowd;}
+    Level1(Timer f,Player p,Crowd crowd,HeightMap heightMap){fade=f;this.p=p;this.crowd=crowd;this.heightMap=heightMap;}
     void reset(){
         crowdrMax=1;
         logVisible=true;
         bridgeBuilt=false;
     }
     void level1(Graphics g, Graphics2D g2d){//Handles drawing level 1
+        if(subPhase==2||subPhase==8){
+            if(subPhase==2){
+                int[][] x={{0,-1},{Frame.panelX-300,520},{Frame.panelX-300+log.getIconWidth(),-1}};
+                heightMap.setHeights(x);
+            }else{
+                int[][] x={{0,-1},{15,530},{15+tents[0].getIconWidth(),-1}};
+                heightMap.setHeights(x);
+            }
+        }else{
+            int[][] x={{0,-1}};
+            heightMap.setHeights(x);
+        }
         if(subPhase<5){
             acf[0]=1;
         }

@@ -6,12 +6,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static CasualCaving.CasualCaving.*;
-
 import static CasualCaving.Frame.j;
 import static java.awt.event.KeyEvent.VK_E;
 import static java.awt.event.KeyEvent.VK_Q;
 
 class Level2 {
+    private HeightMap heightMap;
     private Player p;
     private CavingLoader cl=new CavingLoader();
     private ImageIcon[][] levels=cl.getLevels();
@@ -25,13 +25,19 @@ class Level2 {
     private int sparkWait=0;//Sparks l2b2
     private int rope=0;
     private Timer fade;
-    Level2(Timer f,Player p){fade=f;this.p=p;}
+    Level2(Timer f,Player p,HeightMap heightMap){fade=f;this.p=p;this.heightMap=heightMap;}
     void reset(){
         l2b8wait=0;
         sparkWait=0;
         rope=0;
     }
     void level2(Graphics g, Graphics2D g2d){
+        if(subPhase!=2){
+            int[][] x={{0,-1}};
+            heightMap.setHeights(x);
+        }else{
+            int[][] x={{0,-1},{1084,-2}};
+        }
         if(subPhase!=1){
             lights=true;
         }

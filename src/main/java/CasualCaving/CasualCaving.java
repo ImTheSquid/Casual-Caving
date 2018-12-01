@@ -23,8 +23,8 @@ public class CasualCaving extends JPanel{
     private TimerControl tc=new TimerControl(crowd,battleHandler);
     private CavingLoader cl=new CavingLoader();
     private Player p=new Player(battleHandler);
-    private Level1 l1=new Level1(tc.getFade(),p,crowd);
-    private Level2 l2=new Level2(tc.getFade(),p);
+    private Level1 l1=new Level1(tc.getFade(),p,crowd,heightMap);
+    private Level2 l2=new Level2(tc.getFade(),p,heightMap);
     private Level3 l3=new Level3(tc.getFade(),p,uniqueIDGenerator,heightMap);
     private Object[] la={l1,l2,l3};
     private Timer fade=tc.getFade();
@@ -230,7 +230,7 @@ public class CasualCaving extends JPanel{
         g.setFont(constantia);
         g.setColor(Color.white);
         g.drawString("Made by Jack Hogan and Stuart Lunn",5, Frame.panelY-(size*2)-5);
-        String version="Version 0.0.8 - 11/2018 (BACKSPACE for debug mode)";
+        String version="Casual Caving 0.0.9  ";
         g.drawString(version, Frame.panelX-g.getFontMetrics(constantia).stringWidth(version)-10, Frame.panelY-(size*2)-5);
         g.setFont(cTitle);
         g.drawString("Start",(Frame.panelX-g.getFontMetrics(cTitle).stringWidth("Start"))/2,(Frame.panelY/2)+g.getFontMetrics(cTitle).getHeight()/4);
