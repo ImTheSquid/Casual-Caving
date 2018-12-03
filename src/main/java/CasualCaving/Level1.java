@@ -37,14 +37,14 @@ class Level1 {
         if(subPhase==2||subPhase==6){
             if(subPhase==2){
                 if(logVisible){
-                    int[][] x={{0,-1},{Frame.panelX-300,520},{Frame.panelX-300+log.getIconWidth(),-1}};
+                    int[][] x={{0,-1},{(int)logHitbox.getX(),520},{(int)logHitbox.getX()+(int)logHitbox.getWidth(),-1}};
                     heightMap.setHeights(x);
                 }else{
                     int[][] x={{0,-1}};
                     heightMap.setHeights(x);
                 }
             }else{
-                int[][] x={{0,-1},{15,530},{15+tents[0].getIconWidth(),-1}};
+                int[][] x={{0,530},{15+tents[0].getIconWidth(),-1}};
                 heightMap.setHeights(x);
             }
         }else{
