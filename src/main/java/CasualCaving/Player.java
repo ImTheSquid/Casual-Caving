@@ -19,13 +19,13 @@ class Player {
     private float velocityY=0;
     private int frame=1;
     private int playerDraw=0;
-    private boolean onGround=true;
     private boolean lanternLight=false;//Determines which Harold is shown
     private boolean hasRope=false;
     private boolean frameDir=true;
     private boolean firstFrame=false;
     private int frameWait=0;
     private boolean jump=false;
+    private boolean jumpEnd=false;
     private Rectangle playerHitbox=new Rectangle((int)playerX,(int)playerY,harold[0][0].getIconWidth(),harold[0][0].getIconHeight());
     Player(BattleHandler battleHandler,HeightMap heightMap){
         this.battleHandler=battleHandler;
@@ -59,10 +59,6 @@ class Player {
 
     void setVelocityX(float velocityX) {
         this.velocityX = velocityX;
-    }
-
-    public float getVelocityX() {
-        return velocityX;
     }
 
     Rectangle getPlayerHitbox() {
@@ -152,6 +148,7 @@ class Player {
             //playerY = 360;
             velocityY = 0;
             jump=false;
+            jumpEnd=false;
         }
         if(((!(phase==2&&subPhase>=6))&&(!(phase==3&&subPhase==0)))&&lights) {
             drawPlayer(g);
@@ -168,7 +165,7 @@ class Player {
         final int frameWaitMax=3;
         lanternLight = (phase == 3 && subPhase > 0)||phase>3;
         if(!(pause||(acf[phase-2]<1))) {
-            if (velocityX == 0 || !onGround) {
+            if (velocityX == 0 || jump||jumpEnd) {
                 frame = 0;
                 firstFrame = false;
             } else {
@@ -237,6 +234,7 @@ class Player {
     }
 
     void jump(){
+        jumpEnd=false;
         playerY-=2;
         if(heightMap.onGround(playerHitbox)) {
             velocityY = -12;
@@ -246,6 +244,7 @@ class Player {
 
     void jumpEnd(){
         jump=false;
+        jumpEnd=true;
         if(velocityY<-6.0f){
             velocityY=-6.0f;
         }
