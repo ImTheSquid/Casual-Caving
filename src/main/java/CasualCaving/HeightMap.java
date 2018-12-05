@@ -14,10 +14,10 @@ class HeightMap {
     void setHeights(int[][] in){
         heights=in;
     }
-    boolean onGround(Rectangle r){
+    HeightReturn onGround(Rectangle r){
         if(heights.length==0){
             Frame.co.print("No array found for height map. NULL POINTER EXCEPTION",true);
-            return false;
+            return new HeightReturn(false);
         }
         boolean singleHeight = heights.length == 1;
         for (int i=0;i<heights.length;i++) {
@@ -29,36 +29,39 @@ class HeightMap {
                     System.out.println("EXEC");
                     if(heights[i][1]==-1){
                         if((int)(r.getY())+(int)(r.getHeight())>=620){
-                            return true;
+                            return new HeightReturn(true,620);
                         }
                     }else if(heights[i][1]==-2){
-                        return false;
+                        return new HeightReturn(false);
                     }else if(r.getY() + r.getHeight() >= heights[i][1]){
-                        return true;
+                        System.out.println(heights[i][1]);
+                        return new HeightReturn(true,heights[i][1]);
                     }
                 }else if(i>0&&!singleHeight&&r.getX()>heights[i-1][0]){
                     if(heights[i][1]==-1){
                         if((int)(r.getY())+(int)(r.getHeight())>=620){
-                            return true;
+                            return new HeightReturn(true,620);
                         }
                     }else if(heights[i][1]==-2){
-                        return false;
-                    }else if(r.getY() + r.getHeight() == heights[i][1]){
-                        return true;
+                        return new HeightReturn(false);
+                    }else if(r.getY() + r.getHeight() >= heights[i][1]){
+                        System.out.println(heights[i][1]);
+                        return new HeightReturn(true,heights[i][1]);
                     }
                 }else if(singleHeight){
                     if(heights[i][1]==-1){
                         if((int)(r.getY())+(int)(r.getHeight())>=620){
-                            return true;
+                            return new HeightReturn(true,620);
                         }
                     }else if(heights[i][1]==-2){
-                        return false;
-                    }else if(r.getY() + r.getHeight() == heights[i][1]){
-                        return true;
+                        return new HeightReturn(false);
+                    }else if(r.getY() + r.getHeight() >= heights[i][1]){
+                        System.out.println(heights[i][1]);
+                        return new HeightReturn(true,heights[i][1]);
                     }
                 }
             }
         }
-        return false;
+        return new HeightReturn(false);
     }
 }
