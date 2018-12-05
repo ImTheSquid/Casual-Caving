@@ -37,7 +37,7 @@ class BlueGolem {
         drawGolem(g);
     }
     private void golemPhysics(){
-        if(heightMap.onGround(golemHitbox)){
+        if(heightMap.onGround(golemHitbox).isOnGround()){
             velY=0;
         }else{
             velY=9;

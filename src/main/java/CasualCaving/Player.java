@@ -144,8 +144,11 @@ class Player {
             playerX = Frame.panelX - harold[0][0].getIconWidth();
         }
         //Y position
-        if (heightMap.onGround(playerHitbox)&&!jump) {
-            //playerY = 360;
+        if (heightMap.onGround(playerHitbox).isOnGround()&&!jump) {
+            try{
+                System.out.println("GROUND:"+(float)(heightMap.onGround(playerHitbox).getGroundLevel()));
+                playerY=(float)(heightMap.onGround(playerHitbox).getGroundLevel()-playerHitbox.getHeight());
+            }catch (NullPointerException e){}
             velocityY = 0;
             jump=false;
             jumpEnd=false;
@@ -236,7 +239,7 @@ class Player {
     void jump(){
         jumpEnd=false;
         playerY-=2;
-        if(heightMap.onGround(playerHitbox)) {
+        if(heightMap.onGround(playerHitbox).isOnGround()) {
             velocityY = -12;
             jump=true;
         }
