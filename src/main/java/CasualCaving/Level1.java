@@ -142,9 +142,7 @@ class Level1 {
             }
         }
         if(logVisible&&subPhase==2&&p.getPlayerHitbox().intersects(logHitbox)){
-            if(p.getPlayerX()>logHitbox.getX()) {
-                p.setPlayerX((float)(logHitbox.getX()+logHitbox.getWidth()));
-            }else{
+            if(!((p.getPlayerX()>logHitbox.getX())||heightMap.onGround(p.getPlayerHitbox()).isOnGround())) {
                 p.setPlayerX((float)(logHitbox.getX()-harold[0][0].getIconWidth()));
             }
         }
