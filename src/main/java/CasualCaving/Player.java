@@ -148,7 +148,7 @@ class Player {
             try{
                 System.out.println("GROUND:"+(float)(heightMap.onGround(playerHitbox).getGroundLevel()));
                 playerY=(float)(heightMap.onGround(playerHitbox).getGroundLevel()-playerHitbox.getHeight());
-            }catch (NullPointerException e){}
+            }catch (NullPointerException ignored){}
             velocityY = 0;
             jump=false;
             jumpEnd=false;
@@ -237,6 +237,7 @@ class Player {
     }
 
     void jump(){
+        if(pause){return;}
         jumpEnd=false;
         playerY-=2;
         if(heightMap.onGround(playerHitbox).isOnGround()) {
@@ -246,6 +247,7 @@ class Player {
     }
 
     void jumpEnd(){
+        if(pause){return;}
         jump=false;
         jumpEnd=true;
         if(velocityY<-6.0f){
