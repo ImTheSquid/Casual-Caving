@@ -48,7 +48,7 @@ class BlueGolem {
         if(heightMap.onGround(golemHitbox).isOnGround()){
             velY=0;
         }else{
-            velY=9;
+            velY=5;
         }
         if(!pause) {
             posX += velX;
@@ -96,13 +96,13 @@ class BlueGolem {
                 }
             }
         }
-        if(attacking) {
-            golemDraw = 1;
+        if(velX>0) {
+            golemDraw = 0;
         }else{
-            golemDraw=0;
+            golemDraw=1;
         }
         System.out.println(frame);
-        g.drawImage(blueGolem[0][frame].getImage(),posX,posY,null);
+        g.drawImage(blueGolem[golemDraw][frame].getImage(),posX,posY,null);
         golemHitbox=new Rectangle(posX,posY,blueGolem[golemDraw][frame].getIconWidth(),blueGolem[golemDraw][frame].getIconHeight());
     }
     //Links in to battle handler

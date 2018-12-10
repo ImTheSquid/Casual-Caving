@@ -53,7 +53,7 @@ public class CasualCaving extends JPanel{
     private Rectangle quitButton;
     static Set<Integer> key=new HashSet<>();//Stores current keyboard presses
     static boolean pause=false;//Pause var
-    static final Integer[][] selector={{0,1,2,3,4,5,6,7},{0,1,2,3,4,5,6,7,8},{0}};//Used for selecting subphases for different levels, as well as determining the number of subphases in a level
+    static final Integer[][] selector={{0,1,2,3,4,5,6,7},{0,1,2,3,4,5,6,7,8},{0,1}};//Used for selecting subphases for different levels, as well as determining the number of subphases in a level
     private boolean debugUnlocked=false;
     private JPanel passwords=new JPanel();
     private JPasswordField pass=new JPasswordField(10);
