@@ -14,7 +14,6 @@ class BlueGolem {
     private float velY=0;
     private CavingLoader cl=new CavingLoader();
     private ImageIcon[][] blueGolem=cl.getBlueGolem();
-    private boolean onObject=false;
     private Rectangle golemHitbox=new Rectangle(posX,posY,blueGolem[0][0].getIconWidth(),blueGolem[0][0].getIconHeight());
     private int golemDraw=0;
     private int frame=1;
