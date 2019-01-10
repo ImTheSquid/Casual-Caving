@@ -6,7 +6,7 @@ import java.awt.*;
 import static CasualCaving.CasualCaving.*;
 import static CasualCaving.Frame.j;
 
-public class Level3 {
+class Level3 {
     private CavingLoader cavingLoader=new CavingLoader();
     private Timer fade;
     private Player p;
@@ -38,7 +38,7 @@ public class Level3 {
         switch(subPhase){
             case 0: l3b1(g);
                 break;
-            case 1:
+            case 1: l3b2(g);
                 break;
         }
         j.repaint();
@@ -47,5 +47,11 @@ public class Level3 {
     private void l3b1(Graphics g){
         int[][] hm={{0,-1}};
         heightMap.setHeights(hm);
+    }
+
+    private void l3b2(Graphics g){
+        int[][] hm={{0,-1}};
+        heightMap.setHeights(hm);
+
     }
 }
