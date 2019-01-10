@@ -1,2 +1,2 @@
 # Casual Caving
-A game me and my friend are making
+You are just going to work like normal, but then something out of the ordinary strikes, causing a cavein and starting your adventure.
