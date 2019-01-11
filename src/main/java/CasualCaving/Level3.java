@@ -12,6 +12,7 @@ class Level3 {
     private Player p;
     private UniqueIDGenerator uniqueIDGenerator;
     private HeightMap heightMap;
+    private GolemsFadeControl gfc=new GolemsFadeControl();
     private final int[][] heights={{}};
     private ImageIcon[][] levels=cavingLoader.getLevels();
     Level3(Timer f,Player p,UniqueIDGenerator uniqueIDGenerator,HeightMap heightMap){
@@ -52,6 +53,8 @@ class Level3 {
     private void l3b2(Graphics g){
         int[][] hm={{0,-1}};
         heightMap.setHeights(hm);
+        if(p.getPlayerX()>500){
 
+        }
     }
 }
