@@ -70,6 +70,7 @@ class Player {
     }
 
     void playerHandle(Graphics g) {//Handles everything with the main player
+        if(phase==5)System.out.println("exec");
         if((subPhase==6&&phase==3)||(subPhase==8&&phase==3)){
             return;
         }
@@ -146,7 +147,6 @@ class Player {
         //Y position
         if (heightMap.onGround(playerHitbox).isOnGround()&&!jump) {
             try{
-                System.out.println("GROUND:"+(float)(heightMap.onGround(playerHitbox).getGroundLevel()));
                 playerY=(float)(heightMap.onGround(playerHitbox).getGroundLevel()-playerHitbox.getHeight());
             }catch (NullPointerException ignored){}
             velocityY = 0;

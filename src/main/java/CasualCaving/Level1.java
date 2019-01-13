@@ -8,6 +8,7 @@ import static CasualCaving.Frame.j;
 import static java.awt.event.KeyEvent.VK_E;
 
 class Level1 {
+    private StringDraw sd=new StringDraw();
     private HeightMap heightMap;
     private Timer fade;
     private CavingLoader cl=new CavingLoader();
@@ -87,7 +88,7 @@ class Level1 {
 
     //Code for all of the subphases int level 1
     private void l1b1(Graphics g){
-        drawString(g,"Alright guys, you know what to do, we're looking for a precious yellow gem located in a nearby cave, now go!",200,60,400,constantia,Color.white);
+        sd.drawString(g,"Alright guys, you know what to do, we're looking for a precious yellow gem located in a nearby cave, now go!",200,60,400,constantia,Color.white);
         g.drawImage(boss.getImage(),50,210,null);
         g.drawImage(bossCrowd.getImage(),boss.getIconWidth()+80,350,null);
         crowd.crowdrPosReset();
@@ -147,7 +148,7 @@ class Level1 {
             }
         }
         if(crowdrV==0&&logVisible&&crowd.getCrowdrPosInt()>0){
-            drawString(g,"Hey, we won't be able to get the cart over that log, you should use some tools.",170,200,400,constantia,Color.white);
+            sd.drawString(g,"Hey, we won't be able to get the cart over that log, you should use some tools.",170,200,400,constantia,Color.white);
         }
     }
 
@@ -168,7 +169,7 @@ class Level1 {
             fade.start();
         }
         if(p.getPlayerX()>325&&!bridgeBuilt&&hasWood){
-            drawString(g,"Press 'E' to place bridge",600,500,800,constantia,Color.white);
+            sd.drawString(g,"Press 'E' to place bridge",600,500,800,constantia,Color.white);
         }
         if(p.getPlayerX()>325&&!bridgeBuilt&&hasWood&&key.contains(VK_E)){
             bridgeBuilt=true;
@@ -207,7 +208,7 @@ class Level1 {
             g.drawImage(cart.getImage(), crowd.getCrowdrPosInt() + 50 + crowdr[crowd.getCrowdrPos()].getIconWidth(), 350, null);
         }
         if(crowdrV==0&&crowd.getCrowdrPosInt()>0){
-            drawString(g,"This looks like a good place to camp. Let's put our stuff down.",150,270,400,constantia,Color.white);
+            sd.drawString(g,"This looks like a good place to camp. Let's put our stuff down.",150,270,400,constantia,Color.white);
             if(fadeTime<100){
                 fadeTime++;
             }else{

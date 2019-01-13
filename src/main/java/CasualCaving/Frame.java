@@ -18,6 +18,7 @@ public class Frame {
     static JFrame console;
     static ConsoleOut co=new ConsoleOut();
     static JTextArea jTextArea;
+    static PrintStream ps;
     public static void main(String[] args) {
         CavingLoader cl=new CavingLoader();
         ImageIcon titleIcon=cl.getTitleIcon();
@@ -42,14 +43,12 @@ public class Frame {
         jTextArea.setLineWrap(true);
         jTextArea.setEditable(false);
         jTextArea.setFont(new Font(Font.MONOSPACED,Font.PLAIN,12));
-        PrintStream ps=new PrintStream(new OutputStream() {
+        ps=new PrintStream(new OutputStream() {
             @Override
             public void write(int b) throws IOException {
                 jTextArea.append(String.valueOf((char)b));
             }
         });
-        System.setOut(ps);
-        System.setErr(ps);
         console.add(jsp);
     }
 

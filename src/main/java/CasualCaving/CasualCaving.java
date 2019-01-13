@@ -15,6 +15,7 @@ import static java.awt.event.KeyEvent.*;
  */
 
 public class CasualCaving extends JPanel{
+    private StringDraw sd=new StringDraw();
     private Hash hash=new Hash();
     private HeightMap heightMap=new HeightMap();
     private UniqueIDGenerator uniqueIDGenerator=new UniqueIDGenerator(hash);
@@ -243,29 +244,6 @@ public class CasualCaving extends JPanel{
         reset();
     }
 
-    static void drawString(Graphics g,String text,int x,int y,int x2,Font f,Color c){
-        String temp="";
-        int z=0;
-        for(int i=0;i<text.length();i++){
-            if((g.getFontMetrics(f).stringWidth(temp.substring(z))>x2-x)){
-                for(int p=i-1;p>0;p--){
-                    if(temp.charAt(p)==' '){
-                        temp=temp.substring(0,p+1)+'~'+temp.substring(p+1);
-                        z=i;
-                        break;
-                    }
-                }
-            }
-            temp+=text.charAt(i);
-        }
-        for(String line:temp.split("~")){
-            g.setFont(f);
-            g.setColor(c);
-            g.drawString(line,x,y+=g.getFontMetrics().getHeight());
-        }
-    }
-
-
     void mDecode(Point p){//Gets mouse movements from Frame
         switch(phase){
             case 1:
@@ -361,9 +339,11 @@ public class CasualCaving extends JPanel{
         }
         if(key.contains(VK_C)){
             key.remove(VK_C);
-            System.out.println(Frame.console.isVisible());
+            System.setOut(Frame.ps);
+            System.setErr(Frame.ps);
             Frame.jTextArea.setText("");
             Frame.console.setVisible(true);
+            Frame.co.print("Output Redirected");
         }
         if(key.contains(VK_ESCAPE)&&phase==1){
             System.exit(0);

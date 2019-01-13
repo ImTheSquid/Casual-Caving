@@ -17,6 +17,14 @@ public class GolemsFadeControl implements Runnable{
         fadeTime.start();
     }
 
+    void start(){
+        fadeTime.start();
+    }
+
+    boolean isRunnable(){
+        return !fadeTime.isAlive()&&golemSeq<3;
+    }
+
     @Override
     public void run() {
         while(true) {
