@@ -54,9 +54,9 @@ class Level3 {
         int[][] hm={{0,-1}};
         heightMap.setHeights(hm);
         if(p.getPlayerX()>500&&gfc.isRunnable()){
-            Frame.co.print("EXECUTED");
-            gfc.start();
+            gfc.start(p);
         }
         gfc.draw(g);
+        j.repaint();
     }
 }

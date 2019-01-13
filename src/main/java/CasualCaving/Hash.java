@@ -6,11 +6,11 @@ import java.security.NoSuchAlgorithmException;
 public class Hash {
     Hash(){}
 
-    String md5(String in){
+    String sha512(String in){
         StringBuilder x=new StringBuilder();
         byte[] d={};
         try {
-            MessageDigest messageDigest=MessageDigest.getInstance("MD5");
+            MessageDigest messageDigest=MessageDigest.getInstance("SHA-512");
             messageDigest.update(in.getBytes());
             d=messageDigest.digest();
         } catch (NoSuchAlgorithmException e) {

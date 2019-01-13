@@ -17,6 +17,6 @@ class UniqueIDGenerator {
             input=(int)(Math.random()*123867)+4;
         }
         knownHashes.add(input);
-        return hash.md5(input.toString());
+        return hash.sha512(input.toString());
     }
 }

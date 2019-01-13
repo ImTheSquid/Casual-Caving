@@ -71,6 +71,7 @@ public class CasualCaving extends JPanel{
     static float gameOverFade=0;
     static boolean goIO=false;//Game over in-out
     static boolean lights=true;
+    private boolean fadeSave=false;
     CasualCaving(){
         fade.start();
         JLabel label=new JLabel("Enter Debug Password:");
@@ -294,15 +295,15 @@ public class CasualCaving extends JPanel{
                 String entry="";
                 String[] o=new String[]{"OK","Cancel"};
                 pass.setText("");
-                int op=JOptionPane.showOptionDialog(null,passwords,"Input Debug Password",JOptionPane.NO_OPTION,JOptionPane.PLAIN_MESSAGE,null,o,o[0]);
+                int op= JOptionPane.showOptionDialog(null,passwords,"Input Debug Password",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,null,o,o[0]);
                 if(op==0){
                     char[] p=pass.getPassword();
                     for (char c : p) {
                         entry += c;
                     }
                 }
-                final String dP="e09dd51b8cb7a1d48ca0f563b8fdc693";
-                if(hash.md5(entry).equals(dP)){
+                final String dP="3E6A980D2E3ABDE035EE8AA31B7E22F9397F8F738511F774B4E50029AA08B732A0C849BEA3F486AA6EAC50ED452868E0E3C00D9AE5A4535AECAFB1961BDCBCA6";
+                if(hash.sha512(entry).toUpperCase().equals(dP)){
                     debugUnlocked=true;
                 }else{
                     JOptionPane.showMessageDialog(null,"Incorrect Password","Error",JOptionPane.ERROR_MESSAGE);
@@ -343,6 +344,7 @@ public class CasualCaving extends JPanel{
             System.setErr(Frame.ps);
             Frame.jTextArea.setText("");
             Frame.console.setVisible(true);
+            Frame.console.setLocation(Frame.j.getLocationOnScreen());
             Frame.co.print("Output Redirected");
         }
         if(key.contains(VK_ESCAPE)&&phase==1){
@@ -357,6 +359,11 @@ public class CasualCaving extends JPanel{
     }
 
     private void pause(){
+        if(!pause){
+            fadeSave=fade.isRunning();
+        }else{
+            if(fadeSave)fade.start();
+        }
         pause = !pause;
     }
 }

@@ -41,6 +41,7 @@ class CavingLoader {
     private final ImageIcon[][] sunGolems={{new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Hematus_Eyes.png"))},
             {new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Isolsi_Eyes.png"))},
             {new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Igneox_Eyes_1.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Igneox_Eyes_2.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Igneox_Eyes_3.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Igneox_Eyes_4.png"))}};
+    private final ImageIcon[] haroldTurn={new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Harold Turn/HaroldTurn1.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Harold Turn/HaroldTurn2.png"))};
 
     CavingLoader(){}
 
@@ -125,5 +126,7 @@ class CavingLoader {
     }
 
     ImageIcon[][] getSunGolems(){return sunGolems;}
+
+    ImageIcon[] getHaroldTurn(){return haroldTurn;}
 }
 
