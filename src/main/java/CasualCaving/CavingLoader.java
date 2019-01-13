@@ -38,7 +38,10 @@ class CavingLoader {
     private final ImageIcon bridge=new ImageIcon(this.getClass().getResource("/CasualCaving/Level 1/Sprites/Bridge.png"));
     private final ImageIcon[] tents={new ImageIcon(this.getClass().getResource("/CasualCaving/Level 1/Sprites/AquaTent.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Level 1/Sprites/LavenderTent.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Level 1/Sprites/RedTent.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Level 1/Sprites/MintTent.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Level 1/Sprites/HaroldTent.png"))};
     private final ImageIcon[][] blueGolem={{new ImageIcon(this.getClass().getResource("/CasualCaving/Entities/Blue Golem/BlueGolemStill.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Entities/Blue Golem/BlueGolemW1.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Entities/Blue Golem/BlueGolemW2.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Entities/Blue Golem/BlueGolemW3.png"))},{new ImageIcon(this.getClass().getResource("/CasualCaving/Entities/Blue Golem/BlueGolemStillFL.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Entities/Blue Golem/BlueGolemW1FL.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Entities/Blue Golem/BlueGolemW2FL.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Entities/Blue Golem/BlueGolemW3FL.png"))}};
-    private final ImageIcon[][] sunGolems={{new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Hematus_Eyes.png"))}};
+    private final ImageIcon[][] sunGolems={{new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Hematus_Eyes.png"))},
+            {new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Isolsi_Eyes.png"))},
+            {new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Igneox_Eyes_1.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Igneox_Eyes_2.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Igneox_Eyes_3.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Level 3/Sun Golem Fade/Igneox_Eyes_4.png"))}};
+    private final ImageIcon[] haroldTurn={new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Harold Turn/HaroldTurn1.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Harold Turn/HaroldTurn2.png"))};
 
     CavingLoader(){}
 
@@ -123,5 +126,7 @@ class CavingLoader {
     }
 
     ImageIcon[][] getSunGolems(){return sunGolems;}
+
+    ImageIcon[] getHaroldTurn(){return haroldTurn;}
 }
 

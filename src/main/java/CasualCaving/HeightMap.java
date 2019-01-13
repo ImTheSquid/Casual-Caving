@@ -16,7 +16,7 @@ class HeightMap {
     }
     HeightReturn onGround(Rectangle r){
         if(heights.length==0){
-            Frame.co.print("No array found for height map. NULL POINTER EXCEPTION",true);
+            Frame.co.printErr("No array found for height map. NULL POINTER EXCEPTION");
             return new HeightReturn(false);
         }
         boolean singleHeight = heights.length == 1;

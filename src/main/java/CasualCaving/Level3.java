@@ -53,8 +53,10 @@ class Level3 {
     private void l3b2(Graphics g){
         int[][] hm={{0,-1}};
         heightMap.setHeights(hm);
-        if(p.getPlayerX()>500){
-
+        if(p.getPlayerX()>500&&gfc.isRunnable()){
+            gfc.start(p);
         }
+        gfc.draw(g);
+        j.repaint();
     }
 }

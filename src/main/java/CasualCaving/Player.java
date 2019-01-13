@@ -11,6 +11,7 @@ class Player {
     private HeightMap heightMap;
     private CavingLoader cl=new CavingLoader();
     private ImageIcon[][] harold=cl.getHarold();
+    private ImageIcon[] haroldTurn=cl.getHaroldTurn();
     private BattleHandler battleHandler;
     private Pickaxe pickaxe;
     private float playerX= Frame.panelX-200-harold[0][0].getIconWidth();
@@ -27,6 +28,8 @@ class Player {
     private boolean jump=false;
     private boolean jumpEnd=false;
     private Rectangle playerHitbox=new Rectangle((int)playerX,(int)playerY,harold[0][0].getIconWidth(),harold[0][0].getIconHeight());
+    private boolean turnAround=false;
+    private int turnAroundPhase=0;
     Player(BattleHandler battleHandler,HeightMap heightMap){
         this.battleHandler=battleHandler;
         pickaxe=new Pickaxe(battleHandler,this);
@@ -146,7 +149,6 @@ class Player {
         //Y position
         if (heightMap.onGround(playerHitbox).isOnGround()&&!jump) {
             try{
-                System.out.println("GROUND:"+(float)(heightMap.onGround(playerHitbox).getGroundLevel()));
                 playerY=(float)(heightMap.onGround(playerHitbox).getGroundLevel()-playerHitbox.getHeight());
             }catch (NullPointerException ignored){}
             velocityY = 0;
@@ -156,7 +158,6 @@ class Player {
         if(((!(phase==2&&subPhase>=6))&&(!(phase==3&&subPhase==0)))&&lights) {
             drawPlayer(g);
         }
-
         try {
             TimeUnit.MILLISECONDS.sleep(25);
         } catch (InterruptedException e) {
@@ -232,8 +233,25 @@ class Player {
                 }
             }
         }
-        g.drawImage(harold[playerDraw][frame].getImage(),(int)playerX,(int)playerY,null);
+        if(turnAround){
+            g.drawImage(haroldTurn[turnAroundPhase].getImage(), (int) playerX, (int) playerY, null);
+            if(turnAroundPhase<1) {
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                turnAroundPhase = 1;
+            }
+        }else {
+            g.drawImage(harold[playerDraw][frame].getImage(), (int) playerX, (int) playerY, null);
+            turnAroundPhase=0;
+        }
         playerHitbox=new Rectangle((int)playerX,(int)playerY,harold[playerDraw][frame].getIconWidth(),harold[playerDraw][frame].getIconHeight());
+    }
+
+    void setTurnAround(){
+        turnAround=!turnAround;
     }
 
     void jump(){
@@ -258,4 +276,5 @@ class Player {
     void attack(){
         pickaxe.attack(velocityX);
     }
+
 }

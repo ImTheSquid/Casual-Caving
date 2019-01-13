@@ -15,6 +15,7 @@ import static java.awt.event.KeyEvent.*;
  */
 
 public class CasualCaving extends JPanel{
+    private StringDraw sd=new StringDraw();
     private Hash hash=new Hash();
     private HeightMap heightMap=new HeightMap();
     private UniqueIDGenerator uniqueIDGenerator=new UniqueIDGenerator(hash);
@@ -70,6 +71,7 @@ public class CasualCaving extends JPanel{
     static float gameOverFade=0;
     static boolean goIO=false;//Game over in-out
     static boolean lights=true;
+    private boolean fadeSave=false;
     CasualCaving(){
         fade.start();
         JLabel label=new JLabel("Enter Debug Password:");
@@ -243,29 +245,6 @@ public class CasualCaving extends JPanel{
         reset();
     }
 
-    static void drawString(Graphics g,String text,int x,int y,int x2,Font f,Color c){
-        String temp="";
-        int z=0;
-        for(int i=0;i<text.length();i++){
-            if((g.getFontMetrics(f).stringWidth(temp.substring(z))>x2-x)){
-                for(int p=i-1;p>0;p--){
-                    if(temp.charAt(p)==' '){
-                        temp=temp.substring(0,p+1)+'~'+temp.substring(p+1);
-                        z=i;
-                        break;
-                    }
-                }
-            }
-            temp+=text.charAt(i);
-        }
-        for(String line:temp.split("~")){
-            g.setFont(f);
-            g.setColor(c);
-            g.drawString(line,x,y+=g.getFontMetrics().getHeight());
-        }
-    }
-
-
     void mDecode(Point p){//Gets mouse movements from Frame
         switch(phase){
             case 1:
@@ -316,15 +295,15 @@ public class CasualCaving extends JPanel{
                 String entry="";
                 String[] o=new String[]{"OK","Cancel"};
                 pass.setText("");
-                int op=JOptionPane.showOptionDialog(null,passwords,"Input Debug Password",JOptionPane.NO_OPTION,JOptionPane.PLAIN_MESSAGE,null,o,o[0]);
+                int op= JOptionPane.showOptionDialog(null,passwords,"Input Debug Password",JOptionPane.OK_CANCEL_OPTION,JOptionPane.PLAIN_MESSAGE,null,o,o[0]);
                 if(op==0){
                     char[] p=pass.getPassword();
                     for (char c : p) {
                         entry += c;
                     }
                 }
-                final String dP="e09dd51b8cb7a1d48ca0f563b8fdc693";
-                if(hash.md5(entry).equals(dP)){
+                final String dP="3E6A980D2E3ABDE035EE8AA31B7E22F9397F8F738511F774B4E50029AA08B732A0C849BEA3F486AA6EAC50ED452868E0E3C00D9AE5A4535AECAFB1961BDCBCA6";
+                if(hash.sha512(entry).toUpperCase().equals(dP)){
                     debugUnlocked=true;
                 }else{
                     JOptionPane.showMessageDialog(null,"Incorrect Password","Error",JOptionPane.ERROR_MESSAGE);
@@ -361,9 +340,12 @@ public class CasualCaving extends JPanel{
         }
         if(key.contains(VK_C)){
             key.remove(VK_C);
-            System.out.println(Frame.console.isVisible());
+            System.setOut(Frame.ps);
+            System.setErr(Frame.ps);
             Frame.jTextArea.setText("");
             Frame.console.setVisible(true);
+            Frame.console.setLocation(Frame.j.getLocationOnScreen());
+            Frame.co.print("Output Redirected");
         }
         if(key.contains(VK_ESCAPE)&&phase==1){
             System.exit(0);
@@ -377,6 +359,11 @@ public class CasualCaving extends JPanel{
     }
 
     private void pause(){
+        if(!pause){
+            fadeSave=fade.isRunning();
+        }else{
+            if(fadeSave)fade.start();
+        }
         pause = !pause;
     }
 }

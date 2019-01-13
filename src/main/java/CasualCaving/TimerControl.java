@@ -23,7 +23,6 @@ class TimerControl {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(lWait<50){
-                j.repaint();
                 lWait++;
                 return;
             }

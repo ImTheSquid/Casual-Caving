@@ -11,6 +11,7 @@ import static java.awt.event.KeyEvent.VK_E;
 import static java.awt.event.KeyEvent.VK_Q;
 
 class Level2 {
+    private StringDraw sd=new StringDraw();
     private HeightMap heightMap;
     private Player p;
     private CavingLoader cl=new CavingLoader();
@@ -112,7 +113,7 @@ class Level2 {
             case 1:
                 g.drawImage(levels[phase-2][subPhase].getImage(),0,0,null);
                 if(p.getPlayerX()>900){
-                    drawString(g,"Press 'E' to place rope",1050,400,1280,constantia,Color.white);
+                    sd.drawString(g,"Press 'E' to place rope",1050,400,1280,constantia,Color.white);
                 }
                 if(key.contains(VK_E)&&p.getPlayerX()>900){
                     rope++;
@@ -123,7 +124,7 @@ class Level2 {
             case 2:
                 g.drawImage(l2b3Variation[0].getImage(),0,0,null);
                 if(p.getPlayerX()>900){
-                    drawString(g,"Press 'E' to go down",1050,400,1280,constantia,Color.white);
+                    sd.drawString(g,"Press 'E' to go down",1050,400,1280,constantia,Color.white);
                 }
                 if(key.contains(VK_E)&&p.getPlayerX()>900){
                     phase=-1;
@@ -133,7 +134,7 @@ class Level2 {
             case 3:
                 g.drawImage(l2b3Variation[0].getImage(),0,0,null);
                 if(p.getPlayerX()>900){
-                    drawString(g,"Press 'E' to place anchor",1050,400,1280,constantia,Color.white);
+                    sd.drawString(g,"Press 'E' to place anchor",1050,400,1280,constantia,Color.white);
                 }
                 if(key.contains(VK_E)&&p.getPlayerX()>900){
                     rope++;
@@ -143,7 +144,7 @@ class Level2 {
             case 4:
                 g.drawImage(l2b3Variation[1].getImage(),0,0,null);
                 if(p.getPlayerX()>900){
-                    drawString(g,"Press 'E' to go down",1050,400,1280,constantia,Color.white);
+                    sd.drawString(g,"Press 'E' to go down",1050,400,1280,constantia,Color.white);
                 }
                 if(key.contains(VK_E)&&p.getPlayerX()>900){
                     subPhase++;
@@ -155,7 +156,7 @@ class Level2 {
         if(p.getPlayerHitbox().intersects(cart)){
             switch (rope){
                 case 0:
-                    drawString(g,"Press 'E' to get rope",420,180,620,constantia,Color.white);
+                    sd.drawString(g,"Press 'E' to get rope",420,180,620,constantia,Color.white);
                     if(key.contains(VK_E)){
                         rope++;
                         p.setHasRope(true);
@@ -163,7 +164,7 @@ class Level2 {
                     }
                     break;
                 case 2:
-                    drawString(g,"Press 'E' to get anchor",420,180,620,constantia,Color.white);
+                    sd.drawString(g,"Press 'E' to get anchor",420,180,620,constantia,Color.white);
                     if(key.contains(VK_E)){
                         rope++;
                         p.setHasRope(false);
@@ -177,7 +178,7 @@ class Level2 {
     private void l2b6(Graphics g){
         Rectangle shrine=new Rectangle(805,238,213,213);
         if(p.getPlayerHitbox().intersects(shrine)) {
-            drawString(g, "'E' to investigate", 815, 270, 1000, constantia, Color.white);
+            sd.drawString(g, "'E' to investigate", 815, 270, 1000, constantia, Color.white);
             if(key.contains(VK_E)){
                 key.remove(VK_E);
                 subPhase++;
@@ -213,7 +214,7 @@ class Level2 {
         }
         g.drawImage(levels[phase-2][5].getImage(),0,0,null);
         g.drawImage(ls.getImage(),0,0,null);
-        drawString(g,"Good thing you called. I heard that stone is cursed!",389,130,520,constantia,Color.white);
+        sd.drawString(g,"Good thing you called. I heard that stone is cursed!",389,130,520,constantia,Color.white);
         if(l2b8wait<100){
             l2b8wait++;
         }else{
