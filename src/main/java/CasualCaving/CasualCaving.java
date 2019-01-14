@@ -100,6 +100,7 @@ public class CasualCaving extends JPanel{
         p.reset();
         l1.reset();
         l2.reset();
+        l3.reset();
         subPhase=0;
         qeChoice=false;
         crowdrV=0;
@@ -232,7 +233,7 @@ public class CasualCaving extends JPanel{
         g.setFont(constantia);
         g.setColor(Color.white);
         g.drawString("Made by Jack Hogan and Stuart Lunn",5, Frame.panelY-(size*2)-5);
-        String version="Casual Caving 0.0.9  ";
+        String version="Casual Caving 0.0.10  ";
         g.drawString(version, Frame.panelX-g.getFontMetrics(constantia).stringWidth(version)-10, Frame.panelY-(size*2)-5);
         g.setFont(cTitle);
         g.drawString("Start",(Frame.panelX-g.getFontMetrics(cTitle).stringWidth("Start"))/2,(Frame.panelY/2)+g.getFontMetrics(cTitle).getHeight()/4);
