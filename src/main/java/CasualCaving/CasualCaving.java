@@ -59,7 +59,7 @@ public class CasualCaving extends JPanel{
     private JPanel passwords=new JPanel();
     private JPasswordField pass=new JPasswordField(10);
     static Boolean[][] firstRun=new Boolean[3][9];
-    static float[] acf={1,1,1};//Alpha Composite Float values for all levels
+    static volatile float[] acf={1,1,1};//Alpha Composite Float values for all levels
     static int fadeTime=0;
     static boolean onObject=false;
     static int newGround=0;
@@ -252,6 +252,7 @@ public class CasualCaving extends JPanel{
                 if(titleA>0) {
                     if (startButton.contains(p)) {
                         gameStart = true;
+
                         fade.start();
                     }
                     if(quitButton.contains(p)){

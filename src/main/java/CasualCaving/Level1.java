@@ -35,6 +35,7 @@ class Level1 {
         bridgeBuilt=false;
     }
     void level1(Graphics g, Graphics2D g2d){//Handles drawing level 1
+        p.startPhysics();
         if(subPhase==2||subPhase==6){
             if(subPhase==2){
                 if(logVisible){

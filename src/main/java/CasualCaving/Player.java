@@ -3,11 +3,10 @@ package CasualCaving;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.concurrent.TimeUnit;
 
 import static CasualCaving.CasualCaving.*;
 
-class Player {
+class Player implements Runnable{
     private HeightMap heightMap;
     private CavingLoader cl=new CavingLoader();
     private ImageIcon[][] harold=cl.getHarold();
@@ -18,8 +17,8 @@ class Player {
     private float playerY=360;
     private float velocityX=0;//Physics stuff
     private float velocityY=0;
-    private int frame=1;
-    private int playerDraw=0;
+    private volatile int frame=1;
+    private volatile int playerDraw=0;
     private boolean lanternLight=false;//Determines which Harold is shown
     private boolean hasRope=false;
     private boolean frameDir=true;
@@ -30,12 +29,15 @@ class Player {
     private Rectangle playerHitbox=new Rectangle((int)playerX,(int)playerY,harold[0][0].getIconWidth(),harold[0][0].getIconHeight());
     private boolean turnAround=false;
     private int turnAroundPhase=0;
-    private boolean movement=true;
+    private volatile boolean movement=true;
+    private Thread physics=new Thread(this);
     Player(BattleHandler battleHandler,HeightMap heightMap){
         this.battleHandler=battleHandler;
         pickaxe=new Pickaxe(battleHandler,this);
         this.heightMap=heightMap;
     }
+
+    void startPhysics(){if(!physics.isAlive())physics.start();}
     void reset(){
         playerX= Frame.panelX-200-harold[0][0].getIconWidth();
         playerY=360;
@@ -71,6 +73,25 @@ class Player {
 
     void setHasRope(boolean hasRope) {
         this.hasRope = hasRope;
+    }
+
+    public void run(){
+        while(true) {
+            if(movement) {
+                playerY += velocityY;
+                playerX += velocityX;
+                velocityY += gravity;
+            }else{
+                velocityX=0;
+                velocityY=0;
+            }
+            frameCalc();
+            try {
+                Thread.sleep(25);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     void playerHandle(Graphics g) {//Handles everything with the main player
@@ -110,6 +131,7 @@ class Player {
             drawPlayer(g);
             return;
         }
+        //Key control
         if (key.contains(KeyEvent.VK_A) || key.contains(KeyEvent.VK_LEFT)) {
             velocityX = -10;
         }
@@ -122,14 +144,6 @@ class Player {
             } else if (velocityX < 0) {
                 velocityX += gravity;
             }
-        }
-        if(movement) {
-            playerY += velocityY;
-            playerX += velocityX;
-            velocityY += gravity;
-        }else{
-            velocityX=0;
-            velocityY=0;
         }
         //Boundary controls
         if (playerX < playerXMin) {
@@ -164,15 +178,80 @@ class Player {
         if(((!(phase==2&&subPhase>=6))&&(!(phase==3&&subPhase==0)))&&lights) {
             drawPlayer(g);
         }
-        try {
-            TimeUnit.MILLISECONDS.sleep(25);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    }
+
+    void frameCalc(){
+        final int frameWaitMax=3;
+        lanternLight = (phase == 3 && subPhase > 0)||phase>3;
+        if(!(pause||(acf[phase-2]<1))) {//Cant find ACF
+            if (velocityX == 0 || jump||jumpEnd) {
+                frame = 0;
+                firstFrame = false;
+            } else {
+                if (!firstFrame) {
+                    frame = 1;
+                    firstFrame = true;
+                }
+                if (frameDir) {
+                    if (frame == 3) {
+                        frameDir = false;
+                    } else {
+                        if (frameWait < frameWaitMax) {
+                            frameWait++;
+                        } else {
+                            frame++;
+                            frameWait = 0;
+                        }
+                    }
+                } else {
+                    if (frame == 1) {
+                        frameDir = true;
+                    } else {
+                        if (frameWait < frameWaitMax) {
+                            frameWait++;
+                        } else {
+                            frame--;
+                            frameWait = 0;
+                        }
+                    }
+                }
+            }
+        }
+        if(velocityX>0){
+            if(hasChainsaw){
+                playerDraw=2;
+            }else if(hasWood){
+                playerDraw=4;
+            }else{
+                playerDraw=0;
+            }
+            if(lanternLight){
+                if(hasRope){
+                    playerDraw=8;
+                }else{
+                    playerDraw=6;
+                }
+            }
+        }else if(velocityX<0){
+            if(hasChainsaw){
+                playerDraw=3;
+            }else if(hasWood){
+                playerDraw=5;
+            }else{
+                playerDraw=1;
+            }
+            if(lanternLight){
+                if(hasRope){
+                    playerDraw=9;
+                }else{
+                    playerDraw=7;
+                }
+            }
         }
     }
 
     void drawPlayer(Graphics g){//Draws Harold and animates him
-        final int frameWaitMax=3;
+        /*final int frameWaitMax=3;
         lanternLight = (phase == 3 && subPhase > 0)||phase>3;
         if(!(pause||(acf[phase-2]<1))) {
             if (velocityX == 0 || jump||jumpEnd) {
@@ -238,7 +317,7 @@ class Player {
                     playerDraw=7;
                 }
             }
-        }
+        }*/
         if(turnAround){
             g.drawImage(haroldTurn[turnAroundPhase].getImage(), (int) playerX, (int) playerY, null);
             if(turnAroundPhase<1) {
