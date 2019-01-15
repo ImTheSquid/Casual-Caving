@@ -12,7 +12,6 @@ public class GolemsFadeControl implements Runnable{
     volatile float igneoxAlpha=0;
     volatile int igneoxSeq=0;
     int golemSeq=0;
-    boolean fadeDir=true;
     boolean threadExit=true;
     Player p;
     GolemsFadeControl(){
@@ -21,6 +20,7 @@ public class GolemsFadeControl implements Runnable{
     void start(Player p){
         this.p=p;
         p.setTurnAround();
+        p.toggleMovement();
         fadeTime.start();
     }
 
@@ -31,67 +31,39 @@ public class GolemsFadeControl implements Runnable{
     @Override
     public void run() {
         while(threadExit) {
-            sleep(30);
+            sleep(15);
             switch (golemSeq) {
                 case 0:
-                    if (fadeDir) {
-                        isolsiAlpha += 0.01;
-                        if (isolsiAlpha >= 1) {
-                            isolsiAlpha = 1;
-                            sleep(500);
-                            fadeDir = false;
-                        }
-                    }else{
-                        isolsiAlpha-=0.01;
-                        if(isolsiAlpha<=0){
-                            isolsiAlpha=0;
-                            sleep(1000);
-                            fadeDir=true;
-                            golemSeq++;
-                        }
+                    isolsiAlpha += 0.01;
+                    if (isolsiAlpha >= 1) {
+                        isolsiAlpha = 1;
+                        sleep(500);
+                        golemSeq++;
                     }
                     break;
                 case 1:
-                    if (fadeDir) {
-                        hematusAlpha += 0.01;
-                        if (hematusAlpha >= 1) {
-                            hematusAlpha = 1;
-                            sleep(2000);
-                            fadeDir = false;
-                        }
-                    }else{
-                        hematusAlpha-=0.01;
-                        if(hematusAlpha<=0){
-                            hematusAlpha=0;
-                            sleep(1000);
-                            fadeDir=true;
-                            golemSeq++;
-                        }
+                    hematusAlpha += 0.01;
+                    if (hematusAlpha >= 1) {
+                        hematusAlpha = 1;
+                        sleep(2000);
+                        golemSeq++;
                     }
                     break;
                 case 2:
-                    if(fadeDir){
-                        igneoxAlpha+=0.01;
-                        if(igneoxAlpha>0.75)igneoxSeq=3;
-                        else if(igneoxAlpha>0.5)igneoxSeq=2;
-                        else if(igneoxAlpha>0.25)igneoxSeq=1;
-                        else igneoxSeq=0;
-                        if(igneoxAlpha>=1){
-                            igneoxAlpha=1;
-                            fadeDir=false;
-                        }
-                    }else {
-                        igneoxAlpha -= 0.01;
-                        if(igneoxAlpha<=0){
-                            igneoxAlpha=0;
-                            fadeDir=true;
-                            golemSeq++;
-                        }
+                    igneoxAlpha+=0.01;
+                    if(igneoxAlpha>0.75)igneoxSeq=3;
+                    else if(igneoxAlpha>0.5)igneoxSeq=2;
+                    else if(igneoxAlpha>0.25)igneoxSeq=1;
+                    else igneoxSeq=0;
+                    if(igneoxAlpha>=1){
+                        igneoxAlpha=1;
+                        golemSeq++;
                     }
                     break;
                 case 3:
                     threadExit=false;
                     p.setTurnAround();
+                    p.toggleMovement();
                     break;
             }
         }
@@ -114,5 +86,14 @@ public class GolemsFadeControl implements Runnable{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    void reset(){
+        isolsiAlpha=0;
+        hematusAlpha=0;
+        igneoxAlpha=0;
+        igneoxSeq=0;
+        golemSeq=0;
+        threadExit=true;
     }
 }

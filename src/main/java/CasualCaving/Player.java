@@ -30,6 +30,7 @@ class Player {
     private Rectangle playerHitbox=new Rectangle((int)playerX,(int)playerY,harold[0][0].getIconWidth(),harold[0][0].getIconHeight());
     private boolean turnAround=false;
     private int turnAroundPhase=0;
+    private boolean movement=true;
     Player(BattleHandler battleHandler,HeightMap heightMap){
         this.battleHandler=battleHandler;
         pickaxe=new Pickaxe(battleHandler,this);
@@ -122,9 +123,14 @@ class Player {
                 velocityX += gravity;
             }
         }
-        playerY += velocityY;
-        playerX += velocityX;
-        velocityY += gravity;
+        if(movement) {
+            playerY += velocityY;
+            playerX += velocityX;
+            velocityY += gravity;
+        }else{
+            velocityX=0;
+            velocityY=0;
+        }
         //Boundary controls
         if (playerX < playerXMin) {
             playerX = playerXMin;
@@ -253,6 +259,8 @@ class Player {
     void setTurnAround(){
         turnAround=!turnAround;
     }
+
+    void toggleMovement(){movement=!movement;}
 
     void jump(){
         if(pause){return;}

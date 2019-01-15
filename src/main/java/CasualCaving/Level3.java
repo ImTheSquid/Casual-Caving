@@ -22,7 +22,7 @@ class Level3 {
         this.heightMap=heightMap;
     }
     void reset(){
-
+        gfc.reset();
     }
 
     Object[] getEntities(){//Gets all entities in a certain subphase
