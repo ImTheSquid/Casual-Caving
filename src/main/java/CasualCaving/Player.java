@@ -15,8 +15,8 @@ class Player implements Runnable{
     private Pickaxe pickaxe;
     private float playerX= Frame.panelX-200-harold[0][0].getIconWidth();
     private float playerY=360;
-    private float velocityX=0;//Physics stuff
-    private float velocityY=0;
+    private volatile float velocityX=0;//Physics stuff
+    private volatile float velocityY=0;
     private volatile int frame=1;
     private volatile int playerDraw=0;
     private boolean lanternLight=false;//Determines which Harold is shown
@@ -77,6 +77,7 @@ class Player implements Runnable{
 
     public void run(){
         while(true) {
+            if(velocityX!=0)System.out.println(velocityX);
             if(movement) {
                 playerY += velocityY;
                 playerX += velocityX;
@@ -84,6 +85,15 @@ class Player implements Runnable{
             }else{
                 velocityX=0;
                 velocityY=0;
+            }
+            //Y position
+            if (heightMap.onGround(playerHitbox).isOnGround()&&!jump) {
+                try{
+                    playerY=(float)(heightMap.onGround(playerHitbox).getGroundLevel()-playerHitbox.getHeight());
+                }catch (NullPointerException ignored){}
+                velocityY = 0;
+                jump=false;
+                jumpEnd=false;
             }
             frameCalc();
             try {
@@ -165,15 +175,6 @@ class Player implements Runnable{
         //Boundary control
         if (playerX + harold[0][0].getIconWidth() > Frame.panelX) {
             playerX = Frame.panelX - harold[0][0].getIconWidth();
-        }
-        //Y position
-        if (heightMap.onGround(playerHitbox).isOnGround()&&!jump) {
-            try{
-                playerY=(float)(heightMap.onGround(playerHitbox).getGroundLevel()-playerHitbox.getHeight());
-            }catch (NullPointerException ignored){}
-            velocityY = 0;
-            jump=false;
-            jumpEnd=false;
         }
         if(((!(phase==2&&subPhase>=6))&&(!(phase==3&&subPhase==0)))&&lights) {
             drawPlayer(g);

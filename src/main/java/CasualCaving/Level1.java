@@ -100,8 +100,6 @@ class Level1 {
             if (p.getPlayerX() > Frame.panelX / 2) {
                 fade.start();
             }
-            crowdrV -= gravity;
-            crowd.setCrowdrPos(crowd.getCrowdrPosInt()+crowdrV);
             g.drawImage(crowdr[crowd.getCrowdrPos()].getImage(), crowd.getCrowdrPosInt(), 350, null);
             g.drawImage(cart.getImage(), crowd.getCrowdrPosInt() + 50 + crowdr[crowd.getCrowdrPos()].getIconWidth(), 350, null);
         }
@@ -114,8 +112,6 @@ class Level1 {
             crowd.crowdrPosReset();
             fade.start();
         }
-        crowdrV-=gravity;
-        crowd.setCrowdrPos(crowd.getCrowdrPosInt()+crowdrV);
         if(crowdrMax==2) {
             g.drawImage(crowdr[crowd.getCrowdrPos()].getImage(), crowd.getCrowdrPosInt(), 350, null);
             g.drawImage(cart.getImage(), crowd.getCrowdrPosInt() + 50 + crowdr[crowd.getCrowdrPos()].getIconWidth(), 350, null);
@@ -159,8 +155,6 @@ class Level1 {
             fade.stop();
             crowd.crowdrPosReset();
         }
-        crowdrV-=gravity;
-        crowd.setCrowdrPos(crowd.getCrowdrPosInt()+crowdrV);
         if(!bridgeBuilt){
             if(p.getPlayerX()>440){
                 p.setPlayerX(440);
@@ -188,8 +182,6 @@ class Level1 {
             fade.start();
             crowd.crowdrPosReset();
         }
-        crowdrV-=gravity;
-        crowd.setCrowdrPos(crowd.getCrowdrPosInt()+crowdrV);
         if(crowdrMax==4) {
             g.drawImage(crowdr[crowd.getCrowdrPos()].getImage(), crowd.getCrowdrPosInt(), 350, null);
             g.drawImage(cart.getImage(), crowd.getCrowdrPosInt() + 50 + crowdr[crowd.getCrowdrPos()].getIconWidth(), 350, null);
@@ -202,8 +194,6 @@ class Level1 {
             fade.start();
             crowd.crowdrPosReset();
         }
-        crowdrV-=gravity;
-        crowd.setCrowdrPos(crowd.getCrowdrPosInt()+crowdrV);
         if(crowdrMax==5) {
             g.drawImage(crowdr[crowd.getCrowdrPos()].getImage(), crowd.getCrowdrPosInt(), 350, null);
             g.drawImage(cart.getImage(), crowd.getCrowdrPosInt() + 50 + crowdr[crowd.getCrowdrPos()].getIconWidth(), 350, null);

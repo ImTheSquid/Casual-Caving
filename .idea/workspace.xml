@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="50da6544-774e-4060-b33c-5c92a902179c" name="Default Changelist" comment="Finished Golem Fade Control">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.8/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.8/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.8/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/casualcaving_test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/casualcaving_test.iml" afterDir="false" />
+    <list default="true" id="50da6544-774e-4060-b33c-5c92a902179c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/CasualCaving/CasualCaving.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/CasualCaving/CasualCaving.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/CasualCaving/Level3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/CasualCaving/Level3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/CasualCaving/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/CasualCaving/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CasualCaving/CasualCaving.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CasualCaving/CasualCaving.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/CasualCaving/Crowd.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/CasualCaving/Crowd.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/classes/CasualCaving/Level1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/CasualCaving/Level1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/CasualCaving/Crowd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CasualCaving/Crowd.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/CasualCaving/Level1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CasualCaving/Level1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/CasualCaving/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CasualCaving/Player.java" afterDir="false" />
     </list>
@@ -64,10 +59,36 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/ConsoleOut.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
+            <state relative-caret-position="119">
               <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Frame.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="275">
+              <caret line="51" column="25" lean-forward="true" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Crowd.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#584#585#0" expanded="true" />
+                <element signature="e#616#617#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -82,11 +103,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Level1.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="37" column="25" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
+            <state relative-caret-position="144">
+              <caret line="199" column="9" lean-forward="true" selection-start-line="199" selection-start-column="9" selection-end-line="199" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -94,11 +115,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="181" lean-forward="true" selection-start-line="181" selection-end-line="181" />
+            <state relative-caret-position="191">
+              <caret line="79" column="26" selection-start-line="79" selection-start-column="26" selection-end-line="79" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#8631#8632#0" expanded="true" />
@@ -111,26 +132,23 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/CasualCaving.java">
+        <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/io/PrintStream.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="228" column="45" selection-start-line="228" selection-start-column="45" selection-end-line="228" selection-end-column="45" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#3608#3609#0" expanded="true" />
-                <element signature="e#3633#3634#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="134">
+              <caret line="879" column="4" selection-start-line="879" selection-start-column="4" selection-end-line="879" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/GolemsFadeControl.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/CasualCaving.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="49" column="21" selection-start-line="49" selection-start-column="21" selection-end-line="49" selection-end-column="21" />
+            <state relative-caret-position="272">
+              <caret line="369" column="5" selection-start-line="369" selection-start-column="5" selection-end-line="369" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#3608#3609#0" expanded="true" />
+                <element signature="e#3633#3634#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -157,18 +175,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Level3.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="850">
-              <caret line="54" column="33" selection-start-line="54" selection-start-column="33" selection-end-line="54" selection-end-column="33" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -180,7 +186,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getClass().getResource(</find>
       <find>private ImageIcon</find>
       <find>&quot;CasualCaving</find>
       <find>);</find>
@@ -191,7 +196,6 @@
       <find>playerX&lt;</find>
       <find>repaint();</find>
       <find>getCrow</find>
-      <find>crowdrV</find>
       <find>getCrowdrPos</find>
       <find>crowdrPos=-1*crowdr[crowd.getCrowdrPos()].getIconWidth()-50-cart.getIconWidth();</find>
       <find>drawPlayer</find>
@@ -210,13 +214,15 @@
       <find>Frame.co</find>
       <find>playerXMax</find>
       <find>golemSeq++</find>
+      <find>getCr</find>
+      <find>crowdrV</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Golem" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
   </component>
@@ -228,7 +234,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/Title/Test.txt" />
         <option value="$PROJECT_DIR$/src/main/java/Title2/TitleLoad.java" />
         <option value="$PROJECT_DIR$/src/main/java/CasualCaving/Timer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/CasualCaving/Crowd.java" />
         <option value="$PROJECT_DIR$/src/main/java/CasualCaving/BattleHandler.java" />
         <option value="$PROJECT_DIR$/src/main/java/CasualCaving/Pickaxe.java" />
         <option value="$PROJECT_DIR$/src/main/java/CasualCaving/EncapHR.java" />
@@ -247,9 +252,10 @@
         <option value="$PROJECT_DIR$/src/main/java/CasualCaving/GolemsFadeControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/CasualCaving/Level3.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
-        <option value="$PROJECT_DIR$/src/main/java/CasualCaving/Player.java" />
-        <option value="$PROJECT_DIR$/src/main/java/CasualCaving/CasualCaving.java" />
+        <option value="$PROJECT_DIR$/src/main/java/CasualCaving/Crowd.java" />
         <option value="$PROJECT_DIR$/src/main/java/CasualCaving/Level1.java" />
+        <option value="$PROJECT_DIR$/src/main/java/CasualCaving/CasualCaving.java" />
+        <option value="$PROJECT_DIR$/src/main/java/CasualCaving/Player.java" />
       </list>
     </option>
   </component>
@@ -361,7 +367,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547571123511" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1547594242223" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../612-2019" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -369,6 +375,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.pathVariables" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Programming\Casual Caving Remade\src\main\resources\CasualCaving" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
     </key>
@@ -377,9 +386,6 @@
       <recent name="E:\Programming\Casual Caving Remade\src\main\java" />
       <recent name="E:\Programming\Casual Caving Remade\src\main\java\Test" />
       <recent name="E:\Programming\Casual Caving Remade\src\main\java\CasualCaving\resource" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\Programming\Casual Caving Remade\src\main\resources\CasualCaving" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -509,7 +515,14 @@
       <option name="project" value="LOCAL" />
       <updated>1547406782717</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Put player movement timer on different thread">
+      <created>1547571175256</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1547571175256</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TodoView">
@@ -650,7 +663,8 @@
     <MESSAGE value="Completely redid how height map was integrated" />
     <MESSAGE value="Added some subphases to level 3" />
     <MESSAGE value="Finished implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished implementation" />
+    <MESSAGE value="Put player movement timer on different thread" />
+    <option name="LAST_COMMIT_MESSAGE" value="Put player movement timer on different thread" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
@@ -702,16 +716,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/CasualCaving/Harold/Lantern Light/HaroldRopeLeftW3.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Crowd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="40" column="40" selection-start-line="40" selection-start-column="40" selection-end-line="40" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/HeightReturn.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -742,23 +746,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/CasualCaving/Level 3/Sun Golem Fade/Isolsi_Eyes.png">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/StringDraw.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/ConsoleOut.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/UniqueIDGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -801,16 +788,6 @@
           <folding>
             <element signature="e#594#595#0" expanded="true" />
             <element signature="e#620#621#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Frame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="35" column="52" selection-start-line="35" selection-start-column="52" selection-end-line="35" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -862,24 +839,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Player.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/StringDraw.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="181" lean-forward="true" selection-start-line="181" selection-end-line="181" />
+        <state relative-caret-position="340">
+          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Crowd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="29" column="5" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#8631#8632#0" expanded="true" />
-            <element signature="e#8669#8670#0" expanded="true" />
-            <element signature="e#9117#9118#0" expanded="true" />
-            <element signature="e#9158#9159#0" expanded="true" />
+            <element signature="e#584#585#0" expanded="true" />
+            <element signature="e#616#617#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Level1.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="199" column="9" lean-forward="true" selection-start-line="199" selection-start-column="9" selection-end-line="199" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk-11.0.1/lib/src.zip!/java.base/java/io/PrintStream.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="879" column="4" selection-start-line="879" selection-start-column="4" selection-end-line="879" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/CasualCaving.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="228" column="45" selection-start-line="228" selection-start-column="45" selection-end-line="228" selection-end-column="45" />
+        <state relative-caret-position="272">
+          <caret line="369" column="5" selection-start-line="369" selection-start-column="5" selection-end-line="369" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3608#3609#0" expanded="true" />
@@ -888,12 +887,36 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Level1.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/ConsoleOut.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="37" column="25" selection-start-line="37" selection-start-column="25" selection-end-line="37" selection-end-column="25" />
+        <state relative-caret-position="119">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Frame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="51" column="25" lean-forward="true" selection-start-line="51" selection-start-column="25" selection-end-line="51" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/CasualCaving/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="79" column="26" selection-start-line="79" selection-start-column="26" selection-end-line="79" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8631#8632#0" expanded="true" />
+            <element signature="e#8669#8670#0" expanded="true" />
+            <element signature="e#9117#9118#0" expanded="true" />
+            <element signature="e#9158#9159#0" expanded="true" />
           </folding>
         </state>
       </provider>

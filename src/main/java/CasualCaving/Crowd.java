@@ -3,6 +3,7 @@ package CasualCaving;
 import javax.swing.*;
 
 import static CasualCaving.CasualCaving.crowdrV;
+import static CasualCaving.CasualCaving.gravity;
 
 /**
  * This section controls the crowd for level 1
@@ -28,10 +29,6 @@ class Crowd implements Runnable{
         crowdrPos=-1*crowdr[getCrowdrPos()].getIconWidth()-50-cart.getIconWidth();
     }
 
-    void setCrowdrPos(int crowdrPos) {
-        this.crowdrPos = crowdrPos;
-    }
-
     void reset(){
         firstCrowdrFrame=false;
         crowdrFrameDir=true;
@@ -40,6 +37,19 @@ class Crowd implements Runnable{
     }
 
     public void run(){
+        while(true) {
+            crowdrPos += crowdrV;
+            crowdrV -= gravity;
+            frameCalc();
+            try {
+                Thread.sleep(25);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    void frameCalc(){
         final int crowdrFrameWaitMax=10;
         if(!firstCrowdrFrame) {
             crowdrFrame = 1;
@@ -68,44 +78,12 @@ class Crowd implements Runnable{
                 }
             }
         }
-        try {
-            Thread.sleep(25);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     int getCrowdrPos(){//Handles crowd animation
         if(crowdrV==0){
             return 0;
         }else{
-            /*if(!firstCrowdrFrame) {
-                crowdrFrame = 1;
-                firstCrowdrFrame=true;
-            }
-            if(crowdrFrameDir){
-                if(crowdrFrame==3){
-                    crowdrFrameDir=false;
-                }else {
-                    if(crowdrFrameWait<crowdrFrameWaitMax){
-                        crowdrFrameWait++;
-                    }else {
-                        crowdrFrame++;
-                        crowdrFrameWait=0;
-                    }
-                }
-            }else{
-                if(crowdrFrame==1){
-                    crowdrFrameDir=true;
-                }else{
-                    if(crowdrFrameWait<crowdrFrameWaitMax){
-                        crowdrFrameWait++;
-                    }else {
-                        crowdrFrame--;
-                        crowdrFrameWait=0;
-                    }
-                }
-            }*/
             return crowdrFrame;
         }
     }
