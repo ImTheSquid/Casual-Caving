@@ -3,17 +3,17 @@ package CasualCaving;
 import javax.swing.*;
 import java.awt.*;
 
-public class GolemsFadeControl implements Runnable{
-    CavingLoader cl=new CavingLoader();
-    ImageIcon[][] sunGolems=cl.getSunGolems();
-    Thread fadeTime=new Thread(this);
-    volatile float isolsiAlpha=0;
-    volatile float hematusAlpha=0;
-    volatile float igneoxAlpha=0;
-    volatile int igneoxSeq=0;
-    int golemSeq=0;
-    boolean threadExit=true;
-    Player p;
+class GolemsFadeControl implements Runnable{
+    private CavingLoader cl=new CavingLoader();
+    private ImageIcon[][] sunGolems=cl.getSunGolems();
+    private Thread fadeTime=new Thread(this);
+    private volatile float isolsiAlpha=0;
+    private volatile float hematusAlpha=0;
+    private volatile float igneoxAlpha=0;
+    private volatile int igneoxSeq=0;
+    private int golemSeq=0;
+    private boolean threadExit=true;
+    private Player p;
     GolemsFadeControl(){
     }
 
@@ -80,7 +80,7 @@ public class GolemsFadeControl implements Runnable{
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1));
     }
 
-    void sleep(int ms){
+    private void sleep(int ms){
         try {
             Thread.sleep(ms);
         } catch (InterruptedException e) {

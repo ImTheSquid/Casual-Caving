@@ -77,8 +77,7 @@ class Player implements Runnable{
 
     public void run(){
         while(true) {
-            if(velocityX!=0)System.out.println(velocityX);
-            if(movement) {
+            if(movement&&(phase>=3&&acf[phase-2]==1)) {
                 playerY += velocityY;
                 playerX += velocityX;
                 velocityY += gravity;
@@ -94,6 +93,11 @@ class Player implements Runnable{
                 velocityY = 0;
                 jump=false;
                 jumpEnd=false;
+            }
+            if (velocityX > 0) {
+                velocityX -= gravity;
+            } else if (velocityX < 0) {
+                velocityX += gravity;
             }
             frameCalc();
             try {
@@ -134,25 +138,21 @@ class Player implements Runnable{
             spDec=false;
         }
         //Determines whether to let the player move
-        if(acf[phase-2]<1){
+        /*if(acf[phase-2]<1){
             if(phase==2&&subPhase==7){
                 return;
             }
             drawPlayer(g);
             return;
-        }
+        }else{
+        }*/
         //Key control
-        if (key.contains(KeyEvent.VK_A) || key.contains(KeyEvent.VK_LEFT)) {
-            velocityX = -10;
-        }
-        if (key.contains(KeyEvent.VK_D) || key.contains(KeyEvent.VK_RIGHT)) {
-            velocityX = 10;
-        }
-        if (!(key.contains(KeyEvent.VK_A) || key.contains(KeyEvent.VK_LEFT) && !(key.contains(KeyEvent.VK_D)) || key.contains(KeyEvent.VK_RIGHT))) {
-            if (velocityX > 0) {
-                velocityX -= gravity;
-            } else if (velocityX < 0) {
-                velocityX += gravity;
+        if(movement) {
+            if (key.contains(KeyEvent.VK_A) || key.contains(KeyEvent.VK_LEFT)) {
+                velocityX = -10;
+            }
+            if (key.contains(KeyEvent.VK_D) || key.contains(KeyEvent.VK_RIGHT)) {
+                velocityX = 10;
             }
         }
         //Boundary controls
@@ -181,10 +181,10 @@ class Player implements Runnable{
         }
     }
 
-    void frameCalc(){
+    private void frameCalc(){
         final int frameWaitMax=3;
         lanternLight = (phase == 3 && subPhase > 0)||phase>3;
-        if(!(pause||(acf[phase-2]<1))) {//Cant find ACF
+        if(!(pause||(phase>=3&&acf[phase-2]<1))) {//Cant find ACF
             if (velocityX == 0 || jump||jumpEnd) {
                 frame = 0;
                 firstFrame = false;
@@ -252,73 +252,6 @@ class Player implements Runnable{
     }
 
     void drawPlayer(Graphics g){//Draws Harold and animates him
-        /*final int frameWaitMax=3;
-        lanternLight = (phase == 3 && subPhase > 0)||phase>3;
-        if(!(pause||(acf[phase-2]<1))) {
-            if (velocityX == 0 || jump||jumpEnd) {
-                frame = 0;
-                firstFrame = false;
-            } else {
-                if (!firstFrame) {
-                    frame = 1;
-                    firstFrame = true;
-                }
-                if (frameDir) {
-                    if (frame == 3) {
-                        frameDir = false;
-                    } else {
-                        if (frameWait < frameWaitMax) {
-                            frameWait++;
-                        } else {
-                            frame++;
-                            frameWait = 0;
-                        }
-                    }
-                } else {
-                    if (frame == 1) {
-                        frameDir = true;
-                    } else {
-                        if (frameWait < frameWaitMax) {
-                            frameWait++;
-                        } else {
-                            frame--;
-                            frameWait = 0;
-                        }
-                    }
-                }
-            }
-        }
-        if(velocityX>0){
-            if(hasChainsaw){
-                playerDraw=2;
-            }else if(hasWood){
-                playerDraw=4;
-            }else{
-                playerDraw=0;
-            }
-            if(lanternLight){
-                if(hasRope){
-                    playerDraw=8;
-                }else{
-                    playerDraw=6;
-                }
-            }
-        }else if(velocityX<0){
-            if(hasChainsaw){
-                playerDraw=3;
-            }else if(hasWood){
-                playerDraw=5;
-            }else{
-                playerDraw=1;
-            }
-            if(lanternLight){
-                if(hasRope){
-                    playerDraw=9;
-                }else{
-                    playerDraw=7;
-                }
-            }
-        }*/
         if(turnAround){
             g.drawImage(haroldTurn[turnAroundPhase].getImage(), (int) playerX, (int) playerY, null);
             if(turnAroundPhase<1) {
@@ -340,10 +273,12 @@ class Player implements Runnable{
         turnAround=!turnAround;
     }
 
-    void toggleMovement(){movement=!movement;}
+    void toggleMovement(){
+        movement = !movement;
+    }
 
     void jump(){
-        if(pause){return;}
+        if(pause||!movement){return;}
         jumpEnd=false;
         playerY-=2;
         if(heightMap.onGround(playerHitbox).isOnGround()) {
