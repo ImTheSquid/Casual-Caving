@@ -44,6 +44,7 @@ public class CasualCaving extends JPanel{
     static final Font cTitle=new Font(constantia.getFontName(),Font.PLAIN,size*4);
     private static final Font c2=new Font(constantia.getFontName(),Font.PLAIN,size*2);
     private static final Font consolas=new Font("consolas",Font.PLAIN,size);
+    private GameOver gameOver=new GameOver(cTitle);
     static boolean gameStart=false;
     static final float gravity=0.5f;
     private boolean debug=false;
@@ -187,12 +188,14 @@ public class CasualCaving extends JPanel{
     }
 
     private void gameOver(Graphics g,Graphics2D g2d){
-        fade.start();
+        if(gameOver.isRunnable())gameOver.startFade();
+        //gameOver.draw(g);
+        /*fade.start();
         AlphaComposite z=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,gameOverFade);
         g2d.setComposite(z);
         g.setColor(Color.white);
         g.setFont(cTitle);
-        g.drawString("Game Over", Frame.panelX/2-g.getFontMetrics(cTitle).stringWidth("Game Over")/2,300);
+        g.drawString("Game Over", Frame.panelX/2-g.getFontMetrics(cTitle).stringWidth("Game Over")/2,300);*/
         if(key.contains(VK_ENTER)){
             goIO=true;
             gameOverFade=0;
@@ -205,6 +208,7 @@ public class CasualCaving extends JPanel{
             fade.start();
             titleA = 0;
         }
+        repaint();
     }
 
     private void intro(Graphics g,Graphics2D g2d){//Handles drawing the intro animation
@@ -285,7 +289,12 @@ public class CasualCaving extends JPanel{
         }
         if(key.contains(KeyEvent.VK_ENTER)&&!gameStart&&phase==1){
             gameStart=true;
-            fade.start();
+            if(!debug) {
+                fade.start();
+            }else{
+                phase=2;
+                repaint();
+            }
         }
         if(key.contains(KeyEvent.VK_S)&&phase==0){
             phase=1;
@@ -348,6 +357,10 @@ public class CasualCaving extends JPanel{
             Frame.console.setVisible(true);
             Frame.console.setLocation(Frame.j.getLocationOnScreen());
             Frame.co.print("Output Redirected");
+        }
+        if(key.contains(VK_K)&&debug){
+            phase=-1;
+            key.remove(VK_K);
         }
         if(key.contains(VK_ESCAPE)&&phase==1){
             System.exit(0);

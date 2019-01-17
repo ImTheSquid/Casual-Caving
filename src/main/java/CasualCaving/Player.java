@@ -77,7 +77,7 @@ class Player implements Runnable{
 
     public void run(){
         while(true) {
-            if(movement&&(phase>=3&&acf[phase-2]==1)) {
+            if(movement&&(phase>=2&&acf[phase-2]==1)) {
                 playerY += velocityY;
                 playerX += velocityX;
                 velocityY += gravity;
@@ -137,15 +137,6 @@ class Player implements Runnable{
         }else if(subPhase==7&phase==3){
             spDec=false;
         }
-        //Determines whether to let the player move
-        /*if(acf[phase-2]<1){
-            if(phase==2&&subPhase==7){
-                return;
-            }
-            drawPlayer(g);
-            return;
-        }else{
-        }*/
         //Key control
         if(movement) {
             if (key.contains(KeyEvent.VK_A) || key.contains(KeyEvent.VK_LEFT)) {

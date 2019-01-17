@@ -28,7 +28,7 @@ class TimerControl {
             }
             switch(phase) {
                 case -1:
-                    if(!goIO){
+                    /*if(!goIO){
                         gameOverFade+=0.01;
                         if(gameOverFade>=1){
                             gameOverFade=1;
@@ -46,7 +46,7 @@ class TimerControl {
                             fade.stop();
                         }
                     }
-                    j.repaint();
+                    j.repaint();*/
                     break;
                 case 0:
                     if (logo) {
