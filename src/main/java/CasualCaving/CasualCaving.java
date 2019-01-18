@@ -39,11 +39,12 @@ public class CasualCaving extends JPanel{
     private ImageIcon title=cl.getTitle();
     static int crowdrV=0;
     static boolean titleReady=false;
-    private static final int size=20;//Default font size
+    static final int size=20;//Default font size
     static final Font constantia=new Font("constantia",Font.PLAIN,size);
     static final Font cTitle=new Font(constantia.getFontName(),Font.PLAIN,size*4);
     private static final Font c2=new Font(constantia.getFontName(),Font.PLAIN,size*2);
     private static final Font consolas=new Font("consolas",Font.PLAIN,size);
+    private TitleScreen titleScreen=new TitleScreen(constantia,cTitle,c2);
     private GameOver gameOver=new GameOver(cTitle);
     static boolean gameStart=false;
     static final float gravity=0.5f;
@@ -201,7 +202,8 @@ public class CasualCaving extends JPanel{
     }
 
     private void title(Graphics g,Graphics2D g2d){//Handles drawing the title screen
-        AlphaComposite tC=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,titleA);
+        titleScreen.draw(g);
+        /*AlphaComposite tC=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,titleA);
         g2d.setComposite(tC);
         g.drawImage(title.getImage(),0,0,null);
         if(!gameStart) {
@@ -223,7 +225,7 @@ public class CasualCaving extends JPanel{
         quitButton=new Rectangle(Frame.panelX/2-50, Frame.panelY-80,100,50);
         g.setColor(Color.white);
         g.setFont(c2);
-        g.drawString("Quit",(Frame.panelX-g.getFontMetrics(c2).stringWidth("Quit"))/2, Frame.panelY-g.getFontMetrics(c2).getHeight()-25);
+        g.drawString("Quit",(Frame.panelX-g.getFontMetrics(c2).stringWidth("Quit"))/2, Frame.panelY-g.getFontMetrics(c2).getHeight()-25);*/
         reset();
     }
 
@@ -231,12 +233,12 @@ public class CasualCaving extends JPanel{
         switch(phase){
             case 1:
                 if(titleA>0) {
-                    if (startButton.contains(p)) {
+                    if (titleScreen.getStartButton().contains(p)) {
                         gameStart = true;
 
                         fade.start();
                     }
-                    if(quitButton.contains(p)){
+                    if(titleScreen.getQuitButton().contains(p)){
                         System.exit(0);
                     }
                 }
