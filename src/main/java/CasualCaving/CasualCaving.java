@@ -62,15 +62,11 @@ public class CasualCaving extends JPanel{
     static Boolean[][] firstRun=new Boolean[3][9];
     static volatile float[] acf={1,1,1};//Alpha Composite Float values for all levels
     static int fadeTime=0;
-    static boolean onObject=false;
-    static int newGround=0;
     static boolean levelEnd=true;
     static float qe=0;
     static boolean qeChoice=false;
     static boolean l2b6FadeDone=false;
     static boolean choice=false;
-    static float gameOverFade=0;
-    static boolean goIO=false;//Game over in-out
     static boolean lights=true;
     private boolean fadeSave=false;
     CasualCaving(){
@@ -109,8 +105,6 @@ public class CasualCaving extends JPanel{
         hasChainsaw=false;
         hasWood=false;
         levelEnd=true;
-        newGround=0;
-        onObject=false;
         for(int i=0;i<firstRun.length;i++){
             for(int j=0;j<firstRun[i].length;j++){
                 firstRun[i][j]=false;
@@ -118,8 +112,6 @@ public class CasualCaving extends JPanel{
         }
         qe=0;
         l2b6FadeDone=false;
-        gameOverFade=0;
-        goIO=false;
         lights=true;
     }
 
@@ -127,7 +119,7 @@ public class CasualCaving extends JPanel{
         Graphics2D g2d=(Graphics2D)g;
         switch (phase) {
             case -1://Game over
-                gameOver(g,g2d);
+                gameOver(g);
                 break;
             case 0://Introduction
                 intro(g, g2d);
@@ -183,32 +175,17 @@ public class CasualCaving extends JPanel{
             g.drawString("Exit to Title", Frame.panelX/2-g.getFontMetrics(c2).stringWidth("Exit to Title")/2, Frame.panelY/2+33);
             g.setFont(constantia);
             g.drawString("Press 'Esc' to reenter the game...", Frame.panelX/2-g.getFontMetrics(constantia).stringWidth("Press \"Esc\" to reenter the game...")/2,300);
-            repaint();
-        }
-    }
-
-    private void gameOver(Graphics g,Graphics2D g2d){
-        if(gameOver.isRunnable())gameOver.startFade();
-        //gameOver.draw(g);
-        /*fade.start();
-        AlphaComposite z=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,gameOverFade);
-        g2d.setComposite(z);
-        g.setColor(Color.white);
-        g.setFont(cTitle);
-        g.drawString("Game Over", Frame.panelX/2-g.getFontMetrics(cTitle).stringWidth("Game Over")/2,300);*/
-        if(key.contains(VK_ENTER)){
-            goIO=true;
-            gameOverFade=0;
-        }
-        if(gameOverFade==0&&goIO) {
-            titleReady = false;
-            gameStart = false;
-            phase = 1;
-            subPhase = 0;
-            fade.start();
-            titleA = 0;
         }
         repaint();
+    }
+
+    private void gameOver(Graphics g){
+        if(gameOver.isRunnable())gameOver.startFade();
+        gameOver.draw(g);
+        if(gameOver.isComplete()){
+            phase=1;
+            fade.start();//TO BE REMOVED LATER AND REPLACED
+        }
     }
 
     private void intro(Graphics g,Graphics2D g2d){//Handles drawing the intro animation

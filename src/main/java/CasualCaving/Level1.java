@@ -225,12 +225,12 @@ class Level1 {
         if(p.getPlayerHitbox().intersects(aqua)&&p.getPlayerY()==360){
             p.setPlayerX((float)(aqua.getX()+aqua.getWidth()));
         }
-        if((p.getPlayerHitbox().intersects(aqua)||p.getPlayerY()>269)&&p.getPlayerX()<15+tents[0].getIconWidth()){
+        /*if((p.getPlayerHitbox().intersects(aqua)||p.getPlayerY()>269)&&p.getPlayerX()<15+tents[0].getIconWidth()){
             onObject=true;
             newGround=530;
         }else{
             onObject=false;
-        }
+        }*/
         g.drawImage(tents[2].getImage(),1000,-20,null);
         g.drawImage(tents[4].getImage(),900,430,null);
         if(p.getPlayerX()>1000){

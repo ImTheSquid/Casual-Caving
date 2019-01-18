@@ -12,6 +12,8 @@ import static CasualCaving.Frame.j;
  * This section creates and manages the timer that controls all of the fading and physics calculations through the game
  */
 
+//TODO Completely dismantle class to remove clutter
+
 class TimerControl {
     private Player p;
     private boolean IO=false;//whether to fade in(false) or out(true) the logo
@@ -27,27 +29,6 @@ class TimerControl {
                 return;
             }
             switch(phase) {
-                case -1:
-                    /*if(!goIO){
-                        gameOverFade+=0.01;
-                        if(gameOverFade>=1){
-                            gameOverFade=1;
-                            goIO=true;
-                            try {
-                                TimeUnit.SECONDS.sleep(2);
-                            } catch (InterruptedException e1) {
-                                e1.printStackTrace();
-                            }
-                        }
-                    }else{
-                        gameOverFade-=0.01;
-                        if(gameOverFade<=0){
-                            gameOverFade=0;
-                            fade.stop();
-                        }
-                    }
-                    j.repaint();*/
-                    break;
                 case 0:
                     if (logo) {
                         if (!IO) {
