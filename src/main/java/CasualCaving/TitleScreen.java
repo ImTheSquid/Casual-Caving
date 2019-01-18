@@ -24,9 +24,34 @@ public class TitleScreen implements Runnable{
 
     Rectangle getQuitButton(){return quitButton;}
 
+    void startFade(){
+        titleFade.start();
+    }
+
+    boolean isRunnable(){
+        return !titleFade.isAlive();
+    }
+
     @Override
     public void run() {
-
+        boolean threadRun=true;
+        while(threadRun){
+            if(!titleReady&&!gameStart) {
+                titleA += 0.01;
+                if (titleA >= 1) {
+                    titleA = 1;
+                    threadRun=false;
+                    titleReady=true;
+                }
+            }else if(gameStart){
+                titleA-=0.01;
+                if(titleA<=0){
+                    titleA=0;
+                    threadRun=false;
+                    phase++;
+                }
+            }
+        }
     }
 
     void draw(Graphics g){
