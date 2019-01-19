@@ -15,6 +15,7 @@ import static java.awt.event.KeyEvent.*;
  */
 
 public class CasualCaving extends JPanel{
+    private Logo logo=new Logo();
     private StringDraw sd=new StringDraw();
     private Hash hash=new Hash();
     private HeightMap heightMap=new HeightMap();
@@ -71,7 +72,7 @@ public class CasualCaving extends JPanel{
     static boolean lights=true;
     private boolean fadeSave=false;
     CasualCaving(){
-        fade.start();
+        logo.startFade();
         JLabel label=new JLabel("Enter Debug Password:");
         passwords.add(label);
         passwords.add(pass);
@@ -190,7 +191,8 @@ public class CasualCaving extends JPanel{
     }
 
     private void intro(Graphics g,Graphics2D g2d){//Handles drawing the intro animation
-        AlphaComposite ls=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,loadA);
+        logo.draw(g);
+        /*AlphaComposite ls=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,loadA);
         g2d.setComposite(ls);
         g.drawImage(load.getImage(),0,0,null);
         g.setColor(Color.white);
@@ -198,7 +200,7 @@ public class CasualCaving extends JPanel{
         g.drawString("Press 'S' to skip",0, Frame.panelY-(size*2)-5);
         AlphaComposite ac=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,logoA);
         g2d.setComposite(ac);
-        g.drawImage(lunan.getImage(), Frame.panelX/2-(lunan.getIconWidth()/2)-15,30,null);
+        g.drawImage(lunan.getImage(), Frame.panelX/2-(lunan.getIconWidth()/2)-15,30,null);*/
     }
     private boolean titleRun=true;
     private void title(Graphics g){//Handles drawing the title screen

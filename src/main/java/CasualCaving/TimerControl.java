@@ -16,8 +16,6 @@ import static CasualCaving.Frame.j;
 
 class TimerControl {
     private Player p;
-    private boolean IO=false;//whether to fade in(false) or out(true) the logo
-    private boolean logo=true;//done with the logo?
     private int lWait=0;//Deals with first wait of logo
     private Crowd cr;
     TimerControl(Crowd c,Player p){cr=c; this.p=p;}
@@ -29,53 +27,6 @@ class TimerControl {
                 return;
             }
             switch(phase) {
-                case 0:
-                    if (logo) {
-                        if (!IO) {
-                            logoA += 0.01;
-                            if (logoA >= 1) {
-                                logoA = 1;
-                                fade.stop();
-                                try {
-                                    TimeUnit.SECONDS.sleep(2);
-                                } catch (InterruptedException e1) {
-                                    e1.printStackTrace();
-                                }
-                                IO = true;
-                                fade.start();
-                            }
-                            j.repaint();
-                        } else {
-                            logoA -= 0.01;
-                            if (logoA <= 0) {
-                                logoA = 0;
-                                fade.stop();
-                                logo = false;
-                                try {
-                                    TimeUnit.SECONDS.sleep(1);
-                                } catch (InterruptedException e1) {
-                                    e1.printStackTrace();
-                                }
-                                fade.start();
-                            }
-                            j.repaint();
-                        }
-                    } else {
-                        loadA -= 0.01;
-                        if (loadA <= 0) {
-                            loadA = 0;
-                            fade.stop();
-                            phase++;
-                            try {
-                                TimeUnit.SECONDS.sleep(1);
-                            } catch (InterruptedException e1) {
-                                e1.printStackTrace();
-                            }
-                            //fade.start();
-                        }
-                        j.repaint();
-                    }
-                    break;
                 case 2:
                     if((subPhase>=1&&subPhase<=5)&&cr.getCrowdrPosInt()<50&&!pause){
                         crowdrV=10;
