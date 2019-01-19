@@ -29,8 +29,8 @@ public class CasualCaving extends JPanel{
     private Level3 l3=new Level3(tc.getFade(),p,uniqueIDGenerator,heightMap);
     private Object[] la={l1,l2,l3};
     private Timer fade=tc.getFade();
-    static int phase=0;//Changes what is drawn on screen
-    static int subPhase=0;//Changes phase of level
+    static volatile int phase=0;//Changes what is drawn on screen
+    static volatile int subPhase=0;//Changes phase of level
     static float logoA=0;//Logo alpha
     static float loadA=1;//Load alpha
     static float titleA=0;//Title alpha
@@ -185,7 +185,7 @@ public class CasualCaving extends JPanel{
         gameOver.draw(g);
         if(gameOver.isComplete()){
             phase=1;
-            fade.start();//TO BE REMOVED LATER AND REPLACED
+            //titleScreen.startFade();
         }
     }
 
@@ -200,8 +200,12 @@ public class CasualCaving extends JPanel{
         g2d.setComposite(ac);
         g.drawImage(lunan.getImage(), Frame.panelX/2-(lunan.getIconWidth()/2)-15,30,null);
     }
-
+    private boolean titleRun=true;
     private void title(Graphics g){//Handles drawing the title screen
+        if(titleRun&&titleScreen.isRunnable()){
+            titleRun=false;
+            titleScreen.startFade();
+        }
         titleScreen.draw(g);
         reset();
     }
@@ -212,8 +216,8 @@ public class CasualCaving extends JPanel{
                 if(titleA>0) {
                     if (titleScreen.getStartButton().contains(p)) {
                         gameStart = true;
-
-                        fade.start();
+                        if(titleScreen.isRunnable())titleScreen.startFade();
+                        //fade.start();
                     }
                     if(titleScreen.getQuitButton().contains(p)){
                         System.exit(0);
@@ -228,8 +232,6 @@ public class CasualCaving extends JPanel{
                 pause = false;
                 gameStart = false;
                 titleReady = false;
-                fade.start();
-                repaint();
             }
         }
     }

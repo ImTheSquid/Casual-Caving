@@ -15,7 +15,6 @@ public class GameOver implements Runnable{
     GameOver(Font ctitle){this.cTitle=ctitle;}
 
     void startFade(){
-        System.out.println("STARTED!");
         alpha.start();
     }
 
@@ -28,7 +27,6 @@ public class GameOver implements Runnable{
         gameOverFade=0;
         goIO=false;
         while (threadRun) {
-            System.out.println(gameOverFade);
             if (!goIO) {
                 gameOverFade += 0.01;
                 if (gameOverFade >= 1) {
@@ -47,7 +45,6 @@ public class GameOver implements Runnable{
                     threadRun=false;
                     titleReady = false;
                     gameStart = false;
-                    //phase = 1;
                     subPhase = 0;
                     titleA = 0;
                 }

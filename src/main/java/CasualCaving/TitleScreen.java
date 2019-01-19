@@ -34,21 +34,25 @@ public class TitleScreen implements Runnable{
 
     @Override
     public void run() {
-        boolean threadRun=true;
-        while(threadRun){
-            if(!titleReady&&!gameStart) {
-                titleA += 0.01;
-                if (titleA >= 1) {
-                    titleA = 1;
-                    threadRun=false;
-                    titleReady=true;
+        while(true){
+            if(phase==1) {
+                if (!titleReady && !gameStart) {
+                    titleA += 0.01;
+                    if (titleA >= 1) {
+                        titleA = 1;
+                        titleReady = true;
+                    }
+                } else if (gameStart) {
+                    titleA -= 0.01;
+                    if (titleA <= 0) {
+                        titleA = 0;
+                        phase++;
+                    }
                 }
-            }else if(gameStart){
-                titleA-=0.01;
-                if(titleA<=0){
-                    titleA=0;
-                    threadRun=false;
-                    phase++;
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
         }

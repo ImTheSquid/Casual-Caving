@@ -71,26 +71,7 @@ class TimerControl {
                             } catch (InterruptedException e1) {
                                 e1.printStackTrace();
                             }
-                            fade.start();
-                        }
-                        j.repaint();
-                    }
-                    break;
-                case 1:
-                    if(!titleReady&&!gameStart) {
-                        titleA += 0.01;
-                        if (titleA >= 1) {
-                            titleA = 1;
-                            fade.stop();
-                            titleReady=true;
-                        }
-                        j.repaint();
-                    }else if(gameStart&&fade.isRunning()){
-                        titleA-=0.01;
-                        if(titleA<=0){
-                            titleA=0;
-                            fade.stop();
-                            phase++;
+                            //fade.start();
                         }
                         j.repaint();
                     }
