@@ -35,7 +35,7 @@ class TimerControl {
                         j.repaint();
                     }
                     if(subPhase==6){
-                        if(acf[0]<1&&!Level1.getReadyToFade6()) {
+                        /*if(acf[0]<1&&!Level1.getReadyToFade6()) {
                             acf[0] += 0.01;
                             if (acf[0] >= 1) {
                                 acf[0] = 1;
@@ -48,7 +48,7 @@ class TimerControl {
                                 fade.stop();
                                 subPhase++;
                             }
-                        }
+                        }*/
                         j.repaint();
                     }
                     if(subPhase==7){
@@ -64,13 +64,13 @@ class TimerControl {
                                 levelEnd = false;
                             }
                         }else{
-                            acf[0] -= 0.01;
+                            /*acf[0] -= 0.01;
                             if (acf[0] <= 0) {
                                 acf[0] = 0;
                                 phase++;
                                 subPhase=0;
                                 p.setPlayerX(100);
-                            }
+                            }*/
                         }
                         j.repaint();
                     }
