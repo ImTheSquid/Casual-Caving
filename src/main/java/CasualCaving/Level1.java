@@ -8,6 +8,7 @@ import static CasualCaving.Frame.j;
 import static java.awt.event.KeyEvent.VK_E;
 
 class Level1 {
+    private CasualCaving cc;
     private StringDraw sd=new StringDraw();
     private HeightMap heightMap;
     private Timer fade;
@@ -28,7 +29,7 @@ class Level1 {
     private boolean bridgeBuilt=false;
     private Rectangle logHitbox=new Rectangle(Frame.panelX-320,520,log.getIconWidth(),log.getIconHeight());
     private static boolean readyToFade6=false;
-    Level1(Timer f,Player p,Crowd crowd,HeightMap heightMap){fade=f;this.p=p;this.crowd=crowd;this.heightMap=heightMap;}
+    Level1(Timer f,Player p,Crowd crowd,HeightMap heightMap,CasualCaving casualCaving){fade=f;this.p=p;this.crowd=crowd;this.heightMap=heightMap;cc=casualCaving;}
     void reset(){
         crowdrMax=1;
         logVisible=true;
@@ -98,7 +99,6 @@ class Level1 {
     private void l1b2(Graphics g){
         if(crowdrMax==1) {
             if (p.getPlayerX() > Frame.panelX / 2) {
-                fade.start();
             }
             g.drawImage(crowdr[crowd.getCrowdrPos()].getImage(), crowd.getCrowdrPosInt(), 350, null);
             g.drawImage(cart.getImage(), crowd.getCrowdrPosInt() + 50 + crowdr[crowd.getCrowdrPos()].getIconWidth(), 350, null);
@@ -110,7 +110,7 @@ class Level1 {
         if(crowdrMax<2){
             crowdrMax=2;
             crowd.crowdrPosReset();
-            fade.start();
+            //fade.start();
         }
         if(crowdrMax==2) {
             g.drawImage(crowdr[crowd.getCrowdrPos()].getImage(), crowd.getCrowdrPosInt(), 350, null);
@@ -161,7 +161,7 @@ class Level1 {
             }
         }else{
             g.drawImage(bridge.getImage(),540,590,null);
-            fade.start();
+            //fade.start();
         }
         if(p.getPlayerX()>325&&!bridgeBuilt&&hasWood){
             sd.drawString(g,"Press 'E' to place bridge",600,500,800,constantia,Color.white);
@@ -229,7 +229,11 @@ class Level1 {
         g.drawImage(tents[4].getImage(),900,430,null);
         if(p.getPlayerX()>1000){
             readyToFade6=true;
-            fade.start();
+            //fade.start();
+            cc.fadeOut();
+            if(brightness==0){
+                subPhase++;
+            }
         }
     }
 

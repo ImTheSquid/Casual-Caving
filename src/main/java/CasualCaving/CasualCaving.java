@@ -14,7 +14,7 @@ import static java.awt.event.KeyEvent.*;
  * This is the main control class and interfaces with all of the other classes to make the game work
  */
 
-public class CasualCaving extends JPanel{
+public class CasualCaving extends JPanel implements Runnable{
     private Logo logo=new Logo();
     private StringDraw sd=new StringDraw();
     private Hash hash=new Hash();
@@ -23,9 +23,8 @@ public class CasualCaving extends JPanel{
     private Crowd crowd=new Crowd();
     private BattleHandler battleHandler=new BattleHandler(this);
     private Player p=new Player(battleHandler,heightMap);
-    private TimerControl tc=new TimerControl(crowd,p);
-    private CavingLoader cl=new CavingLoader();
-    private Level1 l1=new Level1(tc.getFade(),p,crowd,heightMap);
+    private TimerControl tc=new TimerControl(p);
+    private Level1 l1=new Level1(tc.getFade(),p,crowd,heightMap,this);
     private Level2 l2=new Level2(tc.getFade(),p,heightMap);
     private Level3 l3=new Level3(tc.getFade(),p,uniqueIDGenerator,heightMap);
     private Object[] la={l1,l2,l3};
@@ -35,9 +34,6 @@ public class CasualCaving extends JPanel{
     static float logoA=0;//Logo alpha
     static float loadA=1;//Load alpha
     static float titleA=0;//Title alpha
-    private ImageIcon lunan=cl.getLunan();
-    private ImageIcon load=cl.getLoad();
-    private ImageIcon title=cl.getTitle();
     static int crowdrV=0;
     static boolean titleReady=false;
     static final int size=20;//Default font size
@@ -52,9 +48,7 @@ public class CasualCaving extends JPanel{
     private boolean debug=false;
     static boolean hasChainsaw=false;
     static boolean hasWood=false;
-    private Rectangle startButton;
     private Rectangle exitButton=new Rectangle((Frame.panelX/2)-105,(Frame.panelY/2)+20,210,40);
-    private Rectangle quitButton;
     static Set<Integer> key=new HashSet<>();//Stores current keyboard presses
     static boolean pause=false;//Pause var
     static final Integer[][] selector={{0,1,2,3,4,5,6,7},{0,1,2,3,4,5,6,7,8},{0,1}};//Used for selecting subphases for different levels, as well as determining the number of subphases in a level
@@ -71,8 +65,17 @@ public class CasualCaving extends JPanel{
     static boolean choice=false;
     static boolean lights=true;
     private boolean fadeSave=false;
+    //Master fade control
+    private Thread masterFade=new Thread(this);
+    static volatile boolean fadeDir=false;
+    static volatile float brightness=1;
+    static Color fadeColor=Color.black;
+    private static volatile boolean fadeStart=false;
+    private static volatile boolean fadeOutActive=false;
+    private static volatile boolean fadeInActive=false;
     CasualCaving(){
         logo.startFade();
+        masterFade.start();
         JLabel label=new JLabel("Enter Debug Password:");
         passwords.add(label);
         passwords.add(pass);
@@ -87,11 +90,64 @@ public class CasualCaving extends JPanel{
         return la;
     }
 
+    void levelEnd(){
+        fadeOut();
+        if(brightness==0){
+            phase++;
+            subPhase=0;
+            p.setPlayerX(100);
+            p.setVelocityX(0);
+        }
+    }
+
+    void fadeOut() {
+        if(fadeOutActive)return;
+        fadeOutActive=true;
+        fadeDir = false;
+        fadeStart = true;
+    }
+
+    void fadeIn(){
+        fadeDir=true;
+        fadeStart=true;
+    }
+    @Override
+    public void run() {//Controls master fade system
+        while(true){
+            while(fadeStart){
+                if(fadeDir){
+                    brightness+=0.01;
+                    if(brightness>=1){
+                        brightness=1;
+                        fadeStart=false;
+                    }
+                }else{
+                    brightness-=0.01;
+                    if(brightness<=0){
+                        brightness=0;
+                        fadeStart=false;
+                        fadeOutActive=false;
+                    }
+                }
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
     public void paintComponent(Graphics g){//Base draw
         super.paintComponent(g);
         g.setColor(Color.black);
         g.fillRect(0,0, Frame.panelX, Frame.panelY);
         draw(g);
+        Graphics2D g2d=(Graphics2D)g;
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,Math.abs(1-brightness)));
+        g.setColor(fadeColor);
+        g.fillRect(0,0,Frame.panelX,Frame.panelY);
+        repaint();
     }
 
     private void reset(){
@@ -124,7 +180,7 @@ public class CasualCaving extends JPanel{
                 gameOver(g);
                 break;
             case 0://Introduction
-                intro(g, g2d);
+                intro(g);
                 break;
             case 1://Title screen
                 title(g);
@@ -158,7 +214,7 @@ public class CasualCaving extends JPanel{
         }
         if (phase > 1&&!pause) {//Deals with pause implementation
             if(acf[phase-2]<1&&acf[phase-2]>0){
-                fade.start();
+                //fade.start();
             }
             p.playerHandle(g);
         }else if(phase>1){//Draws the pause menu screen
@@ -186,21 +242,11 @@ public class CasualCaving extends JPanel{
         gameOver.draw(g);
         if(gameOver.isComplete()){
             phase=1;
-            //titleScreen.startFade();
         }
     }
 
-    private void intro(Graphics g,Graphics2D g2d){//Handles drawing the intro animation
+    private void intro(Graphics g){//Handles drawing the intro animation
         logo.draw(g);
-        /*AlphaComposite ls=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,loadA);
-        g2d.setComposite(ls);
-        g.drawImage(load.getImage(),0,0,null);
-        g.setColor(Color.white);
-        g.setFont(constantia);
-        g.drawString("Press 'S' to skip",0, Frame.panelY-(size*2)-5);
-        AlphaComposite ac=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,logoA);
-        g2d.setComposite(ac);
-        g.drawImage(lunan.getImage(), Frame.panelX/2-(lunan.getIconWidth()/2)-15,30,null);*/
     }
     private boolean titleRun=true;
     private void title(Graphics g){//Handles drawing the title screen
@@ -213,19 +259,14 @@ public class CasualCaving extends JPanel{
     }
 
     void mDecode(Point p){//Gets mouse movements from Frame
-        switch(phase){
-            case 1:
-                if(titleA>0) {
-                    if (titleScreen.getStartButton().contains(p)) {
-                        gameStart = true;
-                        if(titleScreen.isRunnable())titleScreen.startFade();
-                        //fade.start();
-                    }
-                    if(titleScreen.getQuitButton().contains(p)){
-                        System.exit(0);
-                    }
-                }
-                break;
+        if(phase==1&&titleA>0) {
+            if (titleScreen.getStartButton().contains(p)) {
+                gameStart = true;
+                if(titleScreen.isRunnable())titleScreen.startFade();
+            }
+            if(titleScreen.getQuitButton().contains(p)){
+                System.exit(0);
+            }
         }
         if(phase>1&&exitButton.contains(p)&&pause){
             int result=JOptionPane.showConfirmDialog(null,"Are you sure you want to quit? ALL PROGRESS WILL BE LOST!","Are You Sure?",JOptionPane.YES_NO_OPTION,JOptionPane.WARNING_MESSAGE);
@@ -249,9 +290,7 @@ public class CasualCaving extends JPanel{
         }
         if(key.contains(KeyEvent.VK_ENTER)&&!gameStart&&phase==1){
             gameStart=true;
-            if(!debug) {
-                fade.start();
-            }else{
+            if (debug) {
                 phase=2;
                 repaint();
             }
@@ -334,6 +373,7 @@ public class CasualCaving extends JPanel{
     }
 
     private void pause(){
+        //Replace with thread pauser later
         if(!pause){
             fadeSave=fade.isRunning();
         }else{

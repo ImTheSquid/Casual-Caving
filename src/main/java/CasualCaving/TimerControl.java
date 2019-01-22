@@ -16,21 +16,12 @@ import static CasualCaving.Frame.j;
 
 class TimerControl {
     private Player p;
-    private int lWait=0;//Deals with first wait of logo
-    private Crowd cr;
-    TimerControl(Crowd c,Player p){cr=c; this.p=p;}
+    TimerControl(Player p){this.p=p;}
     private ActionListener fadeListen=new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(lWait<50){
-                lWait++;
-                return;
-            }
             switch(phase) {
                 case 2:
-                    if((subPhase>=1&&subPhase<=5)&&cr.getCrowdrPosInt()<50&&!pause){
-                        crowdrV=10;
-                    }
                     if(fadeTime==100&&subPhase==5){
                         acf[0]-=0.01;
                         if(acf[0]<=0){

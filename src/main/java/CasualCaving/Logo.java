@@ -16,7 +16,12 @@ public class Logo implements Runnable{
     Logo(){}
     void startFade(){logoFade.start();}
     public void run(){
-        while(loadA>0||logo){
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        while((loadA>0||logo)&&phase==0){
             if (logo) {
                 if (!IO) {
                     logoA += 0.01;

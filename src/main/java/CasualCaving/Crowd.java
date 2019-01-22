@@ -2,8 +2,7 @@ package CasualCaving;
 
 import javax.swing.*;
 
-import static CasualCaving.CasualCaving.crowdrV;
-import static CasualCaving.CasualCaving.gravity;
+import static CasualCaving.CasualCaving.*;
 
 /**
  * This section controls the crowd for level 1
@@ -38,6 +37,9 @@ class Crowd implements Runnable{
 
     public void run(){
         while(true) {
+            if((subPhase>=1&&subPhase<=5)&&crowdrPos<50&&!pause){
+                crowdrV=10;
+            }
             crowdrPos += crowdrV;
             crowdrV -= gravity;
             frameCalc();

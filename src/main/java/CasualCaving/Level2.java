@@ -81,6 +81,13 @@ class Level2 {
     }
 
     private void l2b2(Graphics g){
+        if(sparkWait<35){
+            try {
+                Thread.sleep(25);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         if(sparkWait<5){
             sparkWait++;
             lights=false;

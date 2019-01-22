@@ -27,31 +27,35 @@ public class GameOver implements Runnable{
         gameOverFade=0;
         goIO=false;
         while (threadRun) {
-            if (!goIO) {
-                gameOverFade += 0.01;
-                if (gameOverFade >= 1) {
-                    gameOverFade = 1;
-                    goIO = true;
-                    try {
-                        TimeUnit.SECONDS.sleep(2);
-                    } catch (InterruptedException e1) {
-                        e1.printStackTrace();
+            if(phase==-1) {
+                if (!goIO) {
+                    gameOverFade += 0.01;
+                    if (gameOverFade >= 1) {
+                        gameOverFade = 1;
+                        goIO = true;
+                        try {
+                            TimeUnit.SECONDS.sleep(2);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
+                        }
+                    }
+                } else {
+                    gameOverFade -= 0.01;
+                    if (gameOverFade <= 0) {
+                        gameOverFade = 0;
+                        threadRun = false;
+                        titleReady = false;
+                        gameStart = false;
+                        subPhase = 0;
+                        titleA = 0;
                     }
                 }
-            } else {
-                gameOverFade -= 0.01;
-                if (gameOverFade <= 0) {
-                    gameOverFade = 0;
-                    threadRun=false;
-                    titleReady = false;
-                    gameStart = false;
-                    subPhase = 0;
-                    titleA = 0;
+                try {
+                    Thread.sleep(25);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             }
-            try{
-                Thread.sleep(25);
-            }catch(InterruptedException e){e.printStackTrace();}
         }
     }
 
