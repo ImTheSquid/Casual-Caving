@@ -22,10 +22,10 @@ public class CasualCaving extends JPanel implements Runnable{
     private UniqueIDGenerator uniqueIDGenerator=new UniqueIDGenerator(hash);
     private Crowd crowd=new Crowd();
     private BattleHandler battleHandler=new BattleHandler(this);
-    private Player p=new Player(battleHandler,heightMap);
+    private Player p=new Player(battleHandler,heightMap,this);
     private TimerControl tc=new TimerControl(p);
     private Level1 l1=new Level1(tc.getFade(),p,crowd,heightMap,this);
-    private Level2 l2=new Level2(tc.getFade(),p,heightMap);
+    private Level2 l2=new Level2(tc.getFade(),p,heightMap,this);
     private Level3 l3=new Level3(tc.getFade(),p,uniqueIDGenerator,heightMap);
     private Object[] la={l1,l2,l3};
     private Timer fade=tc.getFade();
@@ -68,7 +68,7 @@ public class CasualCaving extends JPanel implements Runnable{
     //Master fade control
     private Thread masterFade=new Thread(this);
     static volatile boolean fadeDir=false;
-    static volatile float brightness=1;
+    private volatile float brightness=1;
     static Color fadeColor=Color.black;
     private static volatile boolean fadeStart=false;
     private static volatile boolean fadeOutActive=false;
@@ -90,17 +90,16 @@ public class CasualCaving extends JPanel implements Runnable{
         return la;
     }
 
-    void levelEnd(){
-        fadeOut();
-        if(brightness==0){
-            phase++;
-            subPhase=0;
-            p.setPlayerX(100);
-            p.setVelocityX(0);
-        }
+    void setBrightness(float in){
+        brightness=in;
+    }
+
+    float getBrightness() {
+        return brightness;
     }
 
     void fadeOut() {
+        if(brightness==0)return;
         if(fadeOutActive)return;
         fadeOutActive=true;
         fadeDir = false;
@@ -148,6 +147,25 @@ public class CasualCaving extends JPanel implements Runnable{
         g.setColor(fadeColor);
         g.fillRect(0,0,Frame.panelX,Frame.panelY);
         repaint();
+        debugDraw(g);
+    }
+
+    private void debugDraw(Graphics g){
+        Graphics2D g2d=(Graphics2D)g;
+        if(debug&&phase>1){
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.25f));
+            g.setColor(Color.black);
+            g.fillRect(0,0,10+Math.max(g.getFontMetrics(consolas).stringWidth("Level:"+(phase-2)+" Subphase: "+subPhase),g.getFontMetrics(consolas).stringWidth("Player X:"+p.getPlayerX()+" Y:"+p.getPlayerY())),10+g.getFontMetrics(consolas).getHeight()*2);
+            g.setFont(consolas);
+            g.setColor(Color.white);
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
+            g.drawString("Player X:"+p.getPlayerX()+" Y:"+(p.getPlayerY()+p.getPlayerHitbox().getHeight()),5,25);
+            g.drawString("Level:"+(phase-2)+" Subphase:"+subPhase,5,25+g.getFontMetrics(consolas).getHeight());
+        }else if(debug&&phase==1){
+            g.setFont(consolas);
+            g.setColor(Color.red);
+            g.drawString("DEBUG MODE ACTIVE",5,25);
+        }
     }
 
     private void reset(){
@@ -194,20 +212,6 @@ public class CasualCaving extends JPanel implements Runnable{
             case 4://Level 3
                 l3.level3(g,g2d);
                 break;
-        }
-        if(debug&&phase>1){
-            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.25f));
-            g.setColor(Color.black);
-            g.fillRect(0,0,10+Math.max(g.getFontMetrics(consolas).stringWidth("Level:"+(phase-2)+" Subphase: "+subPhase),g.getFontMetrics(consolas).stringWidth("Player X:"+p.getPlayerX()+" Y:"+p.getPlayerY())),10+g.getFontMetrics(consolas).getHeight()*2);
-            g.setFont(consolas);
-            g.setColor(Color.white);
-            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
-            g.drawString("Player X:"+p.getPlayerX()+" Y:"+(p.getPlayerY()+p.getPlayerHitbox().getHeight()),5,25);
-            g.drawString("Level:"+(phase-2)+" Subphase:"+subPhase,5,25+g.getFontMetrics(consolas).getHeight());
-        }else if(debug&&phase==1){
-            g.setFont(consolas);
-            g.setColor(Color.red);
-            g.drawString("DEBUG MODE ACTIVE",5,25);
         }
         if(!Frame.j.isActive()&&phase>1&&!debug){
             pause=true;

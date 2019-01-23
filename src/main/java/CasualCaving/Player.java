@@ -30,11 +30,13 @@ class Player implements Runnable{
     private boolean turnAround=false;
     private int turnAroundPhase=0;
     private volatile boolean movement=true;
+    private CasualCaving cc;
     private Thread physics=new Thread(this);
-    Player(BattleHandler battleHandler,HeightMap heightMap){
+    Player(BattleHandler battleHandler,HeightMap heightMap,CasualCaving cc){
         this.battleHandler=battleHandler;
         pickaxe=new Pickaxe(battleHandler,this);
         this.heightMap=heightMap;
+        this.cc=cc;
     }
 
     void startPhysics(){if(!physics.isAlive())physics.start();}
@@ -77,7 +79,7 @@ class Player implements Runnable{
 
     public void run(){
         while(true) {
-            if(movement&&(phase>=2&&acf[phase-2]==1)) {
+            if(movement&&(phase>=2&&cc.getBrightness()==1)) {
                 playerY += velocityY;
                 playerX += velocityX;
                 velocityY += gravity;

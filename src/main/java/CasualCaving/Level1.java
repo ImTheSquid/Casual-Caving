@@ -204,7 +204,7 @@ class Level1 {
                 try{Thread.sleep(5);}catch(InterruptedException e){e.printStackTrace();}
             }else{
                 cc.fadeOut();
-                if(brightness==0){
+                if(cc.getBrightness()==0){
                     subPhase++;
                     cc.fadeIn();
                 }
@@ -232,25 +232,24 @@ class Level1 {
         g.drawImage(tents[2].getImage(),1000,-20,null);
         g.drawImage(tents[4].getImage(),900,430,null);
         if(p.getPlayerX()>1000){
-            //fade.start();
             cc.fadeOut();
-            if(brightness==0){
+            if(cc.getBrightness()==0){
                 subPhase++;
             }
         }
     }
 
     private void l1end(Graphics g){
+        if(cc.getBrightness()!=1)cc.setBrightness(1);
         l2.startFade();
         l2.draw(g);
-        if(!firstRun[0][7]){
-            firstRun[0][7]=true;
-            acf[0]=0;
-            levelEnd=true;
+        if(!firstRun[0][7]) {
+            firstRun[0][7] = true;
+            acf[0] = 0;
+            levelEnd = true;
             p.setPlayerX(100);
             p.setVelocityX(0);
         }
-        //fade.start();
 
     }
 }

@@ -26,7 +26,14 @@ class Level2 {
     private int sparkWait=0;//Sparks l2b2
     private int rope=0;
     private Timer fade;
-    Level2(Timer f,Player p,HeightMap heightMap){fade=f;this.p=p;this.heightMap=heightMap;}
+    private LevelEnd l3=new LevelEnd(3);
+    private CasualCaving cc;
+    Level2(Timer f,Player p,HeightMap heightMap,CasualCaving cc){
+        fade=f;
+        this.p=p;
+        this.heightMap=heightMap;
+        this.cc=cc;
+    }
     void reset(){
         l2b8wait=0;
         sparkWait=0;
@@ -69,7 +76,7 @@ class Level2 {
                 break;
             case 7: l2b8(g);
                 break;
-            case 8: l2end(g,g2d);
+            case 8: l2end(g);
                 break;
         }
         j.repaint();
@@ -196,7 +203,7 @@ class Level2 {
     private void l2b7(Graphics g,Graphics2D g2d){
         if(!firstRun[1][6]){
             firstRun[1][6]=true;
-            fade.start();
+            //fade.start();
             qe=0.01f;
         }
         AlphaComposite z=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,qe);
@@ -229,17 +236,20 @@ class Level2 {
         }
     }
 
-    private void l2end(Graphics g,Graphics2D g2d){
+    private void l2end(Graphics g){
+        if(cc.getBrightness()!=1)cc.setBrightness(1);
+        l3.draw(g);
+        l3.startFade();
         if(!firstRun[0][8]){
             firstRun[0][8]=true;
             acf[1]=0;
             levelEnd=true;
         }
-        fade.start();
+        /*fade.start();
         AlphaComposite z=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,acf[1]);
         g2d.setComposite(z);
         g.setFont(cTitle);
         g.setColor(Color.white);
-        g.drawString("Part 3", Frame.panelX/2-g.getFontMetrics(cTitle).stringWidth("Part 3")/2,300);
+        g.drawString("Part 3", Frame.panelX/2-g.getFontMetrics(cTitle).stringWidth("Part 3")/2,300);*/
     }
 }
