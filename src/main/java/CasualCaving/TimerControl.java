@@ -21,60 +21,6 @@ class TimerControl {
         @Override
         public void actionPerformed(ActionEvent e) {
             switch(phase) {
-                case 2:
-                    if(fadeTime==100&&subPhase==5){
-                        acf[0]-=0.01;
-                        if(acf[0]<=0){
-                            acf[0]=0;
-                            try {
-                                TimeUnit.SECONDS.sleep(2);
-                            } catch (InterruptedException e1) {
-                                e1.printStackTrace();
-                            }
-                        }
-                        j.repaint();
-                    }
-                    if(subPhase==6){
-                        /*if(acf[0]<1&&!Level1.getReadyToFade6()) {
-                            acf[0] += 0.01;
-                            if (acf[0] >= 1) {
-                                acf[0] = 1;
-                                fade.stop();
-                            }
-                        }else{
-                            acf[0] -= 0.01;
-                            if (acf[0] <= 0) {
-                                acf[0] = 0;
-                                fade.stop();
-                                subPhase++;
-                            }
-                        }*/
-                        j.repaint();
-                    }
-                    if(subPhase==7){
-                        /*if(levelEnd) {
-                            acf[0] += 0.01;
-                            if (acf[0] >= 1) {
-                                acf[0] = 1;
-                                try {
-                                    TimeUnit.SECONDS.sleep(2);
-                                } catch (InterruptedException e1) {
-                                    e1.printStackTrace();
-                                }
-                                levelEnd = false;
-                            }
-                        }else{
-                            acf[0] -= 0.01;
-                            if (acf[0] <= 0) {
-                                acf[0] = 0;
-                                phase++;
-                                subPhase=0;
-                                p.setPlayerX(100);
-                            }
-                        }*/
-                        j.repaint();
-                    }
-                    break;
                 case 3:
                     if(subPhase==6&&!qeChoice){
                         qe+=0.01;

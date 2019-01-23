@@ -1,8 +1,11 @@
 package CasualCaving;
 
+import com.sun.management.OperatingSystemMXBean;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -153,14 +156,22 @@ public class CasualCaving extends JPanel implements Runnable{
     private void debugDraw(Graphics g){
         Graphics2D g2d=(Graphics2D)g;
         if(debug&&phase>1){
+            OperatingSystemMXBean osBean=ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
+            double load=osBean.getSystemCpuLoad()*100;
+            final long mb=1024L*1024L;
+            long free=Runtime.getRuntime().freeMemory()/mb;
+            long max=Runtime.getRuntime().maxMemory()/mb;
+            String ramCpu="RAM:"+free+"MB/"+max+"MB CPU:"+Math.round(load)+"%";
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.25f));
             g.setColor(Color.black);
-            g.fillRect(0,0,10+Math.max(g.getFontMetrics(consolas).stringWidth("Level:"+(phase-2)+" Subphase: "+subPhase),g.getFontMetrics(consolas).stringWidth("Player X:"+p.getPlayerX()+" Y:"+p.getPlayerY())),10+g.getFontMetrics(consolas).getHeight()*2);
+            g.fillRect(0,0,10+Math.max(Math.max(g.getFontMetrics(consolas).stringWidth("Level:"+(phase-2)+" Subphase: "+subPhase),g.getFontMetrics(consolas).stringWidth("Player X:"+p.getPlayerX()+" Y:"+p.getPlayerY())),g.getFontMetrics(consolas).stringWidth(ramCpu)),10+g.getFontMetrics(consolas).getHeight()*3);
             g.setFont(consolas);
             g.setColor(Color.white);
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1f));
             g.drawString("Player X:"+p.getPlayerX()+" Y:"+(p.getPlayerY()+p.getPlayerHitbox().getHeight()),5,25);
             g.drawString("Level:"+(phase-2)+" Subphase:"+subPhase,5,25+g.getFontMetrics(consolas).getHeight());
+            g.drawString(ramCpu,5,25+g.getFontMetrics(consolas).getHeight()*2);
+
         }else if(debug&&phase==1){
             g.setFont(consolas);
             g.setColor(Color.red);

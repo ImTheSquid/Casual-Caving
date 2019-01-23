@@ -245,11 +245,5 @@ class Level2 {
             acf[1]=0;
             levelEnd=true;
         }
-        /*fade.start();
-        AlphaComposite z=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,acf[1]);
-        g2d.setComposite(z);
-        g.setFont(cTitle);
-        g.setColor(Color.white);
-        g.drawString("Part 3", Frame.panelX/2-g.getFontMetrics(cTitle).stringWidth("Part 3")/2,300);*/
     }
 }
