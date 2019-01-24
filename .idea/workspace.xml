@@ -1,22 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="50da6544-774e-4060-b33c-5c92a902179c" name="Default Changelist" comment="Further implementation">
-      <change afterPath="$PROJECT_DIR$/src/main/java/CasualCaving/SunStoneChoice.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="50da6544-774e-4060-b33c-5c92a902179c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/CasualCaving/CasualCaving.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/CasualCaving/CasualCaving.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/CasualCaving/Level1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/CasualCaving/Level1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/CasualCaving/Level2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/CasualCaving/Level2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/CasualCaving/TimerControl$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/CasualCaving/TimerControl$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/CasualCaving/TimerControl.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/classes/CasualCaving/TimerControl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CasualCaving/CasualCaving.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CasualCaving/CasualCaving.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CasualCaving/GameOver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CasualCaving/GameOver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CasualCaving/Level1.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CasualCaving/Level1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CasualCaving/Level2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CasualCaving/Level2.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CasualCaving/LevelEnd.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CasualCaving/LevelEnd.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/CasualCaving/TimerControl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/CasualCaving/TimerControl.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -91,7 +77,11 @@
       </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+            </state>
+          </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -339,7 +329,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548289918490" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548289938039" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../612-2019" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
@@ -536,7 +526,14 @@
       <option name="project" value="LOCAL" />
       <updated>1548267076897</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Further implementation">
+      <created>1548289936836</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1548289936836</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TodoView">
@@ -549,7 +546,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17377399" />
@@ -652,7 +649,8 @@
     <MESSAGE value="More work on TitleScreen and transferring code" />
     <MESSAGE value="Finished Logo class" />
     <MESSAGE value="Finished LevelEnd class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished LevelEnd class" />
+    <MESSAGE value="Further implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="Further implementation" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="editorHistoryManager">
@@ -967,7 +965,11 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="3" lean-forward="true" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+        </state>
+      </provider>
     </entry>
   </component>
   <component name="masterDetails">
