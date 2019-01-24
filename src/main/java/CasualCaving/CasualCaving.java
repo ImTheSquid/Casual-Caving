@@ -101,6 +101,14 @@ public class CasualCaving extends JPanel implements Runnable{
         return brightness;
     }
 
+    void gameOver(){
+        fadeOut();
+        if(brightness==0){
+            brightness=1;
+            phase=-1;
+        }
+    }
+
     void fadeOut() {
         if(brightness==0)return;
         if(fadeOutActive)return;
@@ -155,13 +163,14 @@ public class CasualCaving extends JPanel implements Runnable{
 
     private void debugDraw(Graphics g){
         Graphics2D g2d=(Graphics2D)g;
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,1));
         if(debug&&phase>1){
             OperatingSystemMXBean osBean=ManagementFactory.getPlatformMXBean(OperatingSystemMXBean.class);
             double load=osBean.getSystemCpuLoad()*100;
             final long mb=1024L*1024L;
             long free=Runtime.getRuntime().freeMemory()/mb;
-            long max=Runtime.getRuntime().maxMemory()/mb;
-            String ramCpu="RAM:"+free+"MB/"+max+"MB CPU:"+Math.round(load)+"%";
+            long total=Runtime.getRuntime().totalMemory()/mb;
+            String ramCpu="RAM:"+(total-free)+"MB/"+total+"MB CPU:"+Math.round(load)+"%";
             g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.25f));
             g.setColor(Color.black);
             g.fillRect(0,0,10+Math.max(Math.max(g.getFontMetrics(consolas).stringWidth("Level:"+(phase-2)+" Subphase: "+subPhase),g.getFontMetrics(consolas).stringWidth("Player X:"+p.getPlayerX()+" Y:"+p.getPlayerY())),g.getFontMetrics(consolas).stringWidth(ramCpu)),10+g.getFontMetrics(consolas).getHeight()*3);
@@ -175,7 +184,7 @@ public class CasualCaving extends JPanel implements Runnable{
         }else if(debug&&phase==1){
             g.setFont(consolas);
             g.setColor(Color.red);
-            g.drawString("DEBUG MODE ACTIVE",5,25);
+            g.drawString("DEBUG MODE ACTIVE",5,20);
         }
     }
 

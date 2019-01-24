@@ -28,6 +28,7 @@ class Level1 {
     private boolean bridgeBuilt=false;
     private Rectangle logHitbox=new Rectangle(Frame.panelX-320,520,log.getIconWidth(),log.getIconHeight());
     private LevelEnd l2=new LevelEnd(2);
+    private Thread levelEndFade=new Thread(l2);
     Level1(Timer f,Player p,Crowd crowd,HeightMap heightMap,CasualCaving casualCaving){fade=f;this.p=p;this.crowd=crowd;this.heightMap=heightMap;cc=casualCaving;}
     void reset(){
         crowdrMax=1;
@@ -240,6 +241,10 @@ class Level1 {
     }
 
     private void l1end(Graphics g){
+        if(!levelEndFade.isAlive()){
+            levelEndFade=new Thread(l2);
+            levelEndFade.start();
+        }
         if(cc.getBrightness()!=1)cc.setBrightness(1);
         l2.startFade();
         l2.draw(g);

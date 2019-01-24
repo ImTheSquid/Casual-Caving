@@ -63,29 +63,6 @@ class TimerControl {
                         }
                         j.repaint();
                     }
-                    if(subPhase==8){
-                        if(levelEnd) {
-                            acf[1] += 0.01;
-                            if (acf[1] >= 1) {
-                                acf[1] = 1;
-                                try {
-                                    TimeUnit.SECONDS.sleep(2);
-                                } catch (InterruptedException e1) {
-                                    e1.printStackTrace();
-                                }
-                                levelEnd = false;
-                            }
-                        }else{
-                            acf[1] -= 0.01;
-                            if (acf[1] <= 0) {
-                                acf[1] = 0;
-                                phase++;
-                                subPhase=0;
-                                p.setPlayerX(100);
-                            }
-                        }
-                        j.repaint();
-                    }
                     break;
             }
         }

@@ -27,6 +27,7 @@ class Level2 {
     private int rope=0;
     private Timer fade;
     private LevelEnd l3=new LevelEnd(3);
+    private Thread levelEndFade=new Thread(l3);
     private CasualCaving cc;
     Level2(Timer f,Player p,HeightMap heightMap,CasualCaving cc){
         fade=f;
@@ -206,8 +207,7 @@ class Level2 {
             //fade.start();
             qe=0.01f;
         }
-        AlphaComposite z=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,qe);
-        g2d.setComposite(z);
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,qe));
         g.drawImage(qeSunStone.getImage(),0,0,null);
         if((key.contains(VK_E)||key.contains(VK_Q))&&!qeChoice){
             fade.start();
@@ -229,14 +229,14 @@ class Level2 {
         g.drawImage(levels[phase-2][5].getImage(),0,0,null);
         g.drawImage(ls.getImage(),0,0,null);
         sd.drawString(g,"Good thing you called. I heard that stone is cursed!",389,130,520,constantia,Color.white);
-        if(l2b8wait<100){
-            l2b8wait++;
-        }else{
-            fade.start();
-        }
+        cc.gameOver();
     }
 
     private void l2end(Graphics g){
+        if(!levelEndFade.isAlive()){
+            levelEndFade=new Thread(l3);
+            levelEndFade.start();
+        }
         if(cc.getBrightness()!=1)cc.setBrightness(1);
         l3.draw(g);
         l3.startFade();

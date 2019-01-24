@@ -9,9 +9,7 @@ public class LevelEnd implements Runnable{
     private volatile float aC=0;
     private volatile boolean fadeStart=false;
     private volatile boolean fadeDir=true;
-    Thread level=new Thread(this);
     LevelEnd(int nextLevel){
-        level.start();
         this.nextLevel=nextLevel;
     }
 
@@ -24,33 +22,31 @@ public class LevelEnd implements Runnable{
 
     @Override
     public void run() {
-        while(true){
-            while(fadeStart){
-                if(fadeDir){
-                    aC+=0.01;
-                    if(aC>=1){
-                        aC=1;
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                        fadeDir=false;
+        while(fadeStart){
+            if(fadeDir){
+                aC+=0.01;
+                if(aC>=1){
+                    aC=1;
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                }else{
-                    aC-=0.01;
-                    if(aC<=0){
-                        aC=0;
-                        phase++;
-                        subPhase=0;
-                        fadeStart=false;
-                    }
+                    fadeDir=false;
                 }
-                try {
-                    Thread.sleep(20);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            }else{
+                aC-=0.01;
+                if(aC<=0){
+                    aC=0;
+                    phase++;
+                    subPhase=0;
+                    fadeStart=false;
                 }
+            }
+            try {
+                Thread.sleep(20);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
         }
     }

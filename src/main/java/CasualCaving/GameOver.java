@@ -15,6 +15,7 @@ public class GameOver implements Runnable{
     GameOver(Font ctitle){this.cTitle=ctitle;}
 
     void startFade(){
+        alpha=new Thread(this);
         alpha.start();
     }
 
@@ -26,6 +27,7 @@ public class GameOver implements Runnable{
         threadRun=true;
         gameOverFade=0;
         goIO=false;
+        gameStart=false;
         while (threadRun) {
             if(phase==-1) {
                 if (!goIO) {
