@@ -93,6 +93,10 @@ public class CasualCaving extends JPanel implements Runnable{
         return la;
     }
 
+    Set<Integer> getKey() {
+        return key;
+    }
+
     void setBrightness(float in){
         brightness=in;
     }

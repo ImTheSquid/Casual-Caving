@@ -1,7 +1,6 @@
 package CasualCaving;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.concurrent.TimeUnit;
 
@@ -17,54 +16,23 @@ import static CasualCaving.Frame.j;
 class TimerControl {
     private Player p;
     TimerControl(Player p){this.p=p;}
-    private ActionListener fadeListen=new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            switch(phase) {
-                case 3:
-                    if(subPhase==6&&!qeChoice){
-                        qe+=0.01;
-                        if(qe>=1){
-                            qe=1;
-                            fade.stop();
+    private ActionListener fadeListen= e -> {
+        switch(phase) {
+            case 3:
+                if(subPhase==7){
+                    acf[1] -= 0.01;
+                    if (acf[1] <= 0) {
+                        acf[1] = 0;
+                        try {
+                            TimeUnit.SECONDS.sleep(2);
+                        } catch (InterruptedException e1) {
+                            e1.printStackTrace();
                         }
-                        j.repaint();
-                    }else if(subPhase==6){
-                        qe-=0.01;
-                        if(qe<=0){
-                            qe=0;
-                            l2b6FadeDone=true;
-                        }
-                        if(l2b6FadeDone){
-                            acf[1]-= 0.01;
-                            if (acf[1] <= 0) {
-                                acf[1] = 0;
-                                p.setPlayerX(100);
-                                acf[1]=1;
-                                if(choice){
-                                    subPhase=8;
-                                }else{
-                                    subPhase=7;
-                                }
-                            }
-                        }
-                        j.repaint();
+                        phase=-1;
                     }
-                    if(subPhase==7){
-                        acf[1] -= 0.01;
-                        if (acf[1] <= 0) {
-                            acf[1] = 0;
-                            try {
-                                TimeUnit.SECONDS.sleep(2);
-                            } catch (InterruptedException e1) {
-                                e1.printStackTrace();
-                            }
-                            phase=-1;
-                        }
-                        j.repaint();
-                    }
-                    break;
-            }
+                    j.repaint();
+                }
+                break;
         }
     };
     private Timer fade=new Timer(20,fadeListen);

@@ -8,7 +8,6 @@ import java.util.Set;
 import static CasualCaving.CasualCaving.*;
 import static CasualCaving.Frame.j;
 import static java.awt.event.KeyEvent.VK_E;
-import static java.awt.event.KeyEvent.VK_Q;
 
 class Level2 {
     private StringDraw sd=new StringDraw();
@@ -29,6 +28,7 @@ class Level2 {
     private LevelEnd l3=new LevelEnd(3);
     private Thread levelEndFade=new Thread(l3);
     private CasualCaving cc;
+    private SunStoneChoice ssc=new SunStoneChoice(cc);
     Level2(Timer f,Player p,HeightMap heightMap,CasualCaving cc){
         fade=f;
         this.p=p;
@@ -207,15 +207,17 @@ class Level2 {
             //fade.start();
             qe=0.01f;
         }
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,qe));
-        g.drawImage(qeSunStone.getImage(),0,0,null);
-        if((key.contains(VK_E)||key.contains(VK_Q))&&!qeChoice){
+        ssc.startFade();
+        ssc.draw(g);
+        /*g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,qe));
+        g.drawImage(qeSunStone.getImage(),0,0,null);*/
+        /*if((key.contains(VK_E)||key.contains(VK_Q))&&!qeChoice){
             fade.start();
             qeChoice=true;
             if(key.contains(VK_E)){
                 choice=true;
             }
-        }
+        }*/
     }
 
     private void l2b8(Graphics g){
