@@ -3,11 +3,10 @@ package CasualCaving;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.util.concurrent.TimeUnit;
 
 import static CasualCaving.CasualCaving.*;
 
-class Player {
+class Player implements Runnable{
     private HeightMap heightMap;
     private CavingLoader cl=new CavingLoader();
     private ImageIcon[][] harold=cl.getHarold();
@@ -16,10 +15,10 @@ class Player {
     private Pickaxe pickaxe;
     private float playerX= Frame.panelX-200-harold[0][0].getIconWidth();
     private float playerY=360;
-    private float velocityX=0;//Physics stuff
-    private float velocityY=0;
-    private int frame=1;
-    private int playerDraw=0;
+    private volatile float velocityX=0;//Physics stuff
+    private volatile float velocityY=0;
+    private volatile int frame=1;
+    private volatile int playerDraw=0;
     private boolean lanternLight=false;//Determines which Harold is shown
     private boolean hasRope=false;
     private boolean frameDir=true;
@@ -30,12 +29,17 @@ class Player {
     private Rectangle playerHitbox=new Rectangle((int)playerX,(int)playerY,harold[0][0].getIconWidth(),harold[0][0].getIconHeight());
     private boolean turnAround=false;
     private int turnAroundPhase=0;
-    private boolean movement=true;
-    Player(BattleHandler battleHandler,HeightMap heightMap){
+    private volatile boolean movement=true;
+    private CasualCaving cc;
+    private Thread physics=new Thread(this);
+    Player(BattleHandler battleHandler,HeightMap heightMap,CasualCaving cc){
         this.battleHandler=battleHandler;
         pickaxe=new Pickaxe(battleHandler,this);
         this.heightMap=heightMap;
+        this.cc=cc;
     }
+
+    void startPhysics(){if(!physics.isAlive())physics.start();}
     void reset(){
         playerX= Frame.panelX-200-harold[0][0].getIconWidth();
         playerY=360;
@@ -73,6 +77,39 @@ class Player {
         this.hasRope = hasRope;
     }
 
+    public void run(){
+        while(true) {
+            if(movement&&(phase>=2&&cc.getBrightness()==1)) {
+                playerY += velocityY;
+                playerX += velocityX;
+                velocityY += gravity;
+            }else{
+                velocityX=0;
+                velocityY=0;
+            }
+            //Y position
+            if (heightMap.onGround(playerHitbox).isOnGround()&&!jump) {
+                try{
+                    playerY=(float)(heightMap.onGround(playerHitbox).getGroundLevel()-playerHitbox.getHeight());
+                }catch (NullPointerException ignored){}
+                velocityY = 0;
+                jump=false;
+                jumpEnd=false;
+            }
+            if (velocityX > 0) {
+                velocityX -= gravity;
+            } else if (velocityX < 0) {
+                velocityX += gravity;
+            }
+            frameCalc();
+            try {
+                Thread.sleep(25);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     void playerHandle(Graphics g) {//Handles everything with the main player
         if((subPhase==6&&phase==3)||(subPhase==8&&phase==3)){
             return;
@@ -102,34 +139,14 @@ class Player {
         }else if(subPhase==7&phase==3){
             spDec=false;
         }
-        //Determines whether to let the player move
-        if(acf[phase-2]<1){
-            if(phase==2&&subPhase==7){
-                return;
-            }
-            drawPlayer(g);
-            return;
-        }
-        if (key.contains(KeyEvent.VK_A) || key.contains(KeyEvent.VK_LEFT)) {
-            velocityX = -10;
-        }
-        if (key.contains(KeyEvent.VK_D) || key.contains(KeyEvent.VK_RIGHT)) {
-            velocityX = 10;
-        }
-        if (!(key.contains(KeyEvent.VK_A) || key.contains(KeyEvent.VK_LEFT) && !(key.contains(KeyEvent.VK_D)) || key.contains(KeyEvent.VK_RIGHT))) {
-            if (velocityX > 0) {
-                velocityX -= gravity;
-            } else if (velocityX < 0) {
-                velocityX += gravity;
-            }
-        }
+        //Key control
         if(movement) {
-            playerY += velocityY;
-            playerX += velocityX;
-            velocityY += gravity;
-        }else{
-            velocityX=0;
-            velocityY=0;
+            if (key.contains(KeyEvent.VK_A) || key.contains(KeyEvent.VK_LEFT)) {
+                velocityX = -10;
+            }
+            if (key.contains(KeyEvent.VK_D) || key.contains(KeyEvent.VK_RIGHT)) {
+                velocityX = 10;
+            }
         }
         //Boundary controls
         if (playerX < playerXMin) {
@@ -152,29 +169,15 @@ class Player {
         if (playerX + harold[0][0].getIconWidth() > Frame.panelX) {
             playerX = Frame.panelX - harold[0][0].getIconWidth();
         }
-        //Y position
-        if (heightMap.onGround(playerHitbox).isOnGround()&&!jump) {
-            try{
-                playerY=(float)(heightMap.onGround(playerHitbox).getGroundLevel()-playerHitbox.getHeight());
-            }catch (NullPointerException ignored){}
-            velocityY = 0;
-            jump=false;
-            jumpEnd=false;
-        }
         if(((!(phase==2&&subPhase>=6))&&(!(phase==3&&subPhase==0)))&&lights) {
             drawPlayer(g);
         }
-        try {
-            TimeUnit.MILLISECONDS.sleep(25);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
-    void drawPlayer(Graphics g){//Draws Harold and animates him
+    private void frameCalc(){
         final int frameWaitMax=3;
         lanternLight = (phase == 3 && subPhase > 0)||phase>3;
-        if(!(pause||(acf[phase-2]<1))) {
+        if(!(pause||(phase>=3&&acf[phase-2]<1))) {//Cant find ACF
             if (velocityX == 0 || jump||jumpEnd) {
                 frame = 0;
                 firstFrame = false;
@@ -239,6 +242,9 @@ class Player {
                 }
             }
         }
+    }
+
+    void drawPlayer(Graphics g){//Draws Harold and animates him
         if(turnAround){
             g.drawImage(haroldTurn[turnAroundPhase].getImage(), (int) playerX, (int) playerY, null);
             if(turnAroundPhase<1) {
@@ -260,10 +266,12 @@ class Player {
         turnAround=!turnAround;
     }
 
-    void toggleMovement(){movement=!movement;}
+    void toggleMovement(){
+        movement = !movement;
+    }
 
     void jump(){
-        if(pause){return;}
+        if(pause||!movement){return;}
         jumpEnd=false;
         playerY-=2;
         if(heightMap.onGround(playerHitbox).isOnGround()) {

@@ -4,13 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 
 import static CasualCaving.CasualCaving.*;
-import static CasualCaving.Frame.j;
 import static java.awt.event.KeyEvent.VK_E;
 
 class Level1 {
+    private CasualCaving cc;
     private StringDraw sd=new StringDraw();
     private HeightMap heightMap;
-    private Timer fade;
     private CavingLoader cl=new CavingLoader();
     private Player p;
     private Crowd crowd;
@@ -27,14 +26,16 @@ class Level1 {
     private ImageIcon log=cl.getLog();
     private boolean bridgeBuilt=false;
     private Rectangle logHitbox=new Rectangle(Frame.panelX-320,520,log.getIconWidth(),log.getIconHeight());
-    private static boolean readyToFade6=false;
-    Level1(Timer f,Player p,Crowd crowd,HeightMap heightMap){fade=f;this.p=p;this.crowd=crowd;this.heightMap=heightMap;}
+    private LevelEnd l2=new LevelEnd(2);
+    private Thread levelEndFade=new Thread(l2);
+    Level1(Player p,Crowd crowd,HeightMap heightMap,CasualCaving casualCaving){this.p=p;this.crowd=crowd;this.heightMap=heightMap;cc=casualCaving;}
     void reset(){
         crowdrMax=1;
         logVisible=true;
         bridgeBuilt=false;
     }
     void level1(Graphics g, Graphics2D g2d){//Handles drawing level 1
+        p.startPhysics();
         if(subPhase==2||subPhase==6){
             if(subPhase==2){
                 if(logVisible){
@@ -61,9 +62,9 @@ class Level1 {
             g.drawImage(levels[phase - 2][subPhase].getImage(), 0, 0, null);
         }
         else{
-            g.setFont(cTitle);
+            /*g.setFont(cTitle);
             g.setColor(Color.white);
-            g.drawString("Part 2", Frame.panelX/2-g.getFontMetrics(cTitle).stringWidth("Part 2")/2,300);
+            g.drawString("Part 2", Frame.panelX/2-g.getFontMetrics(cTitle).stringWidth("Part 2")/2,300);*/
         }
         switch(subPhase){
             case 0: l1b1(g);
@@ -80,10 +81,9 @@ class Level1 {
                 break;
             case 6: l1b7(g);
                 break;
-            case 7: l1end();
+            case 7: l1end(g);
                 break;
         }
-        j.repaint();
     }
 
     //Code for all of the subphases int level 1
@@ -97,10 +97,7 @@ class Level1 {
     private void l1b2(Graphics g){
         if(crowdrMax==1) {
             if (p.getPlayerX() > Frame.panelX / 2) {
-                fade.start();
             }
-            crowdrV -= gravity;
-            crowd.setCrowdrPos(crowd.getCrowdrPosInt()+crowdrV);
             g.drawImage(crowdr[crowd.getCrowdrPos()].getImage(), crowd.getCrowdrPosInt(), 350, null);
             g.drawImage(cart.getImage(), crowd.getCrowdrPosInt() + 50 + crowdr[crowd.getCrowdrPos()].getIconWidth(), 350, null);
         }
@@ -111,10 +108,8 @@ class Level1 {
         if(crowdrMax<2){
             crowdrMax=2;
             crowd.crowdrPosReset();
-            fade.start();
+            //fade.start();
         }
-        crowdrV-=gravity;
-        crowd.setCrowdrPos(crowd.getCrowdrPosInt()+crowdrV);
         if(crowdrMax==2) {
             g.drawImage(crowdr[crowd.getCrowdrPos()].getImage(), crowd.getCrowdrPosInt(), 350, null);
             g.drawImage(cart.getImage(), crowd.getCrowdrPosInt() + 50 + crowdr[crowd.getCrowdrPos()].getIconWidth(), 350, null);
@@ -155,18 +150,15 @@ class Level1 {
     private void l1b4(Graphics g){
         if(crowdrMax<3&&!logVisible){
             crowdrMax=3;
-            fade.stop();
             crowd.crowdrPosReset();
         }
-        crowdrV-=gravity;
-        crowd.setCrowdrPos(crowd.getCrowdrPosInt()+crowdrV);
         if(!bridgeBuilt){
             if(p.getPlayerX()>440){
                 p.setPlayerX(440);
             }
         }else{
             g.drawImage(bridge.getImage(),540,590,null);
-            fade.start();
+            //fade.start();
         }
         if(p.getPlayerX()>325&&!bridgeBuilt&&hasWood){
             sd.drawString(g,"Press 'E' to place bridge",600,500,800,constantia,Color.white);
@@ -184,11 +176,8 @@ class Level1 {
     private void l1b5(Graphics g){
         if(crowdrMax<4){
             crowdrMax=4;
-            fade.start();
             crowd.crowdrPosReset();
         }
-        crowdrV-=gravity;
-        crowd.setCrowdrPos(crowd.getCrowdrPosInt()+crowdrV);
         if(crowdrMax==4) {
             g.drawImage(crowdr[crowd.getCrowdrPos()].getImage(), crowd.getCrowdrPosInt(), 350, null);
             g.drawImage(cart.getImage(), crowd.getCrowdrPosInt() + 50 + crowdr[crowd.getCrowdrPos()].getIconWidth(), 350, null);
@@ -198,11 +187,9 @@ class Level1 {
     private void l1b6(Graphics g){
         if(crowdrMax<5){
             crowdrMax=5;
-            fade.start();
+            //fade.start();
             crowd.crowdrPosReset();
         }
-        crowdrV-=gravity;
-        crowd.setCrowdrPos(crowd.getCrowdrPosInt()+crowdrV);
         if(crowdrMax==5) {
             g.drawImage(crowdr[crowd.getCrowdrPos()].getImage(), crowd.getCrowdrPosInt(), 350, null);
             g.drawImage(cart.getImage(), crowd.getCrowdrPosInt() + 50 + crowdr[crowd.getCrowdrPos()].getIconWidth(), 350, null);
@@ -211,8 +198,13 @@ class Level1 {
             sd.drawString(g,"This looks like a good place to camp. Let's put our stuff down.",150,270,400,constantia,Color.white);
             if(fadeTime<100){
                 fadeTime++;
+                try{Thread.sleep(5);}catch(InterruptedException e){e.printStackTrace();}
             }else{
-                fade.start();
+                cc.fadeOut();
+                if(cc.getBrightness()==0){
+                    subPhase++;
+                    cc.fadeIn();
+                }
             }
         }
         if(acf[0]==0){
@@ -223,7 +215,6 @@ class Level1 {
     private void l1b7(Graphics g){
         if(!firstRun[0][6]){
             firstRun[0][6]=true;
-            fade.start();
             p.setPlayerX(400);
         }
         g.drawImage(tents[3].getImage(),350,350,null);//Aqua lavender red mint orange (0,1,2,3,4)
@@ -234,32 +225,31 @@ class Level1 {
         if(p.getPlayerHitbox().intersects(aqua)&&p.getPlayerY()==360){
             p.setPlayerX((float)(aqua.getX()+aqua.getWidth()));
         }
-        if((p.getPlayerHitbox().intersects(aqua)||p.getPlayerY()>269)&&p.getPlayerX()<15+tents[0].getIconWidth()){
-            onObject=true;
-            newGround=530;
-        }else{
-            onObject=false;
-        }
         g.drawImage(tents[2].getImage(),1000,-20,null);
         g.drawImage(tents[4].getImage(),900,430,null);
         if(p.getPlayerX()>1000){
-            readyToFade6=true;
-            fade.start();
+            cc.fadeOut();
+            if(cc.getBrightness()==0){
+                subPhase++;
+            }
         }
     }
 
-    static boolean getReadyToFade6(){
-        return readyToFade6;
-    }
-
-    private void l1end(){
-        if(!firstRun[0][7]){
-            firstRun[0][7]=true;
-            acf[0]=0;
-            levelEnd=true;
+    private void l1end(Graphics g){
+        if(!levelEndFade.isAlive()){
+            levelEndFade=new Thread(l2);
+            levelEndFade.start();
+        }
+        if(cc.getBrightness()!=1)cc.setBrightness(1);
+        l2.startFade();
+        l2.draw(g);
+        if(!firstRun[0][7]) {
+            firstRun[0][7] = true;
+            acf[0] = 0;
+            levelEnd = true;
             p.setPlayerX(100);
             p.setVelocityX(0);
         }
-        fade.start();
+
     }
 }

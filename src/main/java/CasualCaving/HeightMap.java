@@ -8,6 +8,8 @@ import java.awt.*;
  * There are some exceptions. If "-1" is put into the second value for an entry into the array, it will assume that it is the normal height (y=620). If "-2" is entered, it will register as a void.
  */
 
+//TODO Clean up class by combining statements
+
 class HeightMap {
     private int[][] heights={};
     HeightMap(){}

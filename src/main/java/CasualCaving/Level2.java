@@ -8,7 +8,6 @@ import java.util.Set;
 import static CasualCaving.CasualCaving.*;
 import static CasualCaving.Frame.j;
 import static java.awt.event.KeyEvent.VK_E;
-import static java.awt.event.KeyEvent.VK_Q;
 
 class Level2 {
     private StringDraw sd=new StringDraw();
@@ -19,14 +18,21 @@ class Level2 {
     private ImageIcon[] foregrounds=cl.getForegrounds();
     private ImageIcon minersl2b1=cl.getMinersl2b1();
     private ImageIcon ls=cl.getLs();
-    private ImageIcon qeSunStone=cl.getQeSunStone();
     private ImageIcon sparks=cl.getSparks();
     private ImageIcon[] l2b3Variation=cl.getL2b3Variation();
     private int l2b8wait=0;
     private int sparkWait=0;//Sparks l2b2
     private int rope=0;
-    private Timer fade;
-    Level2(Timer f,Player p,HeightMap heightMap){fade=f;this.p=p;this.heightMap=heightMap;}
+    private LevelEnd l3=new LevelEnd(3);
+    private Thread levelEndFade=new Thread(l3);
+    private CasualCaving cc;
+    private SunStoneChoice ssc;
+    Level2(Player p,HeightMap heightMap,CasualCaving cc){
+        this.p=p;
+        this.heightMap=heightMap;
+        this.cc=cc;
+        ssc=new SunStoneChoice(cc);
+    }
     void reset(){
         l2b8wait=0;
         sparkWait=0;
@@ -69,7 +75,7 @@ class Level2 {
                 break;
             case 7: l2b8(g);
                 break;
-            case 8: l2end(g,g2d);
+            case 8: l2end(g);
                 break;
         }
         j.repaint();
@@ -81,6 +87,13 @@ class Level2 {
     }
 
     private void l2b2(Graphics g){
+        if(sparkWait<35){
+            try {
+                Thread.sleep(25);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
         if(sparkWait<5){
             sparkWait++;
             lights=false;
@@ -189,19 +202,11 @@ class Level2 {
     private void l2b7(Graphics g,Graphics2D g2d){
         if(!firstRun[1][6]){
             firstRun[1][6]=true;
-            fade.start();
+            //fade.start();
             qe=0.01f;
         }
-        AlphaComposite z=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,qe);
-        g2d.setComposite(z);
-        g.drawImage(qeSunStone.getImage(),0,0,null);
-        if((key.contains(VK_E)||key.contains(VK_Q))&&!qeChoice){
-            fade.start();
-            qeChoice=true;
-            if(key.contains(VK_E)){
-                choice=true;
-            }
-        }
+        ssc.startFade();
+        ssc.draw(g);
     }
 
     private void l2b8(Graphics g){
@@ -209,30 +214,26 @@ class Level2 {
             firstRun[1][7]=true;
             p.setPlayerX(722);
             p.drawPlayer(g);
-            fade.stop();
             acf[1]=1;
         }
         g.drawImage(levels[phase-2][5].getImage(),0,0,null);
         g.drawImage(ls.getImage(),0,0,null);
         sd.drawString(g,"Good thing you called. I heard that stone is cursed!",389,130,520,constantia,Color.white);
-        if(l2b8wait<100){
-            l2b8wait++;
-        }else{
-            fade.start();
-        }
+        cc.gameOver();
     }
 
-    private void l2end(Graphics g,Graphics2D g2d){
+    private void l2end(Graphics g){
+        if(!levelEndFade.isAlive()){
+            levelEndFade=new Thread(l3);
+            levelEndFade.start();
+        }
+        if(cc.getBrightness()!=1)cc.setBrightness(1);
+        l3.draw(g);
+        l3.startFade();
         if(!firstRun[0][8]){
             firstRun[0][8]=true;
             acf[1]=0;
             levelEnd=true;
         }
-        fade.start();
-        AlphaComposite z=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,acf[1]);
-        g2d.setComposite(z);
-        g.setFont(cTitle);
-        g.setColor(Color.white);
-        g.drawString("Part 3", Frame.panelX/2-g.getFontMetrics(cTitle).stringWidth("Part 3")/2,300);
     }
 }
