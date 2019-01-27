@@ -26,12 +26,10 @@ public class CasualCaving extends JPanel implements Runnable{
     private Crowd crowd=new Crowd();
     private BattleHandler battleHandler=new BattleHandler(this);
     private Player p=new Player(battleHandler,heightMap,this);
-    private TimerControl tc=new TimerControl(p);
-    private Level1 l1=new Level1(tc.getFade(),p,crowd,heightMap,this);
-    private Level2 l2=new Level2(tc.getFade(),p,heightMap,this);
-    private Level3 l3=new Level3(tc.getFade(),p,uniqueIDGenerator,heightMap);
+    private Level1 l1=new Level1(p,crowd,heightMap,this);
+    private Level2 l2=new Level2(p,heightMap,this);
+    private Level3 l3=new Level3(p,uniqueIDGenerator,heightMap);
     private Object[] la={l1,l2,l3};
-    private Timer fade=tc.getFade();
     static volatile int phase=0;//Changes what is drawn on screen
     static volatile int subPhase=0;//Changes phase of level
     static float logoA=0;//Logo alpha
@@ -246,7 +244,6 @@ public class CasualCaving extends JPanel implements Runnable{
             }
             p.playerHandle(g);
         }else if(phase>1){//Draws the pause menu screen
-            fade.stop();
             p.drawPlayer(g);
             AlphaComposite p=AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.5f);
             g.setColor(Color.gray);
@@ -401,12 +398,6 @@ public class CasualCaving extends JPanel implements Runnable{
     }
 
     private void pause(){
-        //Replace with thread pauser later
-        if(!pause){
-            fadeSave=fade.isRunning();
-        }else{
-            if(fadeSave)fade.start();
-        }
         pause = !pause;
     }
 }

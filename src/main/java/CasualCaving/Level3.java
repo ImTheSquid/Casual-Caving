@@ -8,15 +8,13 @@ import static CasualCaving.Frame.j;
 
 class Level3 {
     private CavingLoader cavingLoader=new CavingLoader();
-    private Timer fade;
     private Player p;
     private UniqueIDGenerator uniqueIDGenerator;
     private HeightMap heightMap;
     private GolemsFadeControl gfc=new GolemsFadeControl();
     private final int[][] heights={{}};
     private ImageIcon[][] levels=cavingLoader.getLevels();
-    Level3(Timer f,Player p,UniqueIDGenerator uniqueIDGenerator,HeightMap heightMap){
-        fade=f;
+    Level3(Player p,UniqueIDGenerator uniqueIDGenerator,HeightMap heightMap){
         this.p=p;
         this.uniqueIDGenerator=uniqueIDGenerator;
         this.heightMap=heightMap;

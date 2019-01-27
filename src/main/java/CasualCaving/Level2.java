@@ -18,22 +18,20 @@ class Level2 {
     private ImageIcon[] foregrounds=cl.getForegrounds();
     private ImageIcon minersl2b1=cl.getMinersl2b1();
     private ImageIcon ls=cl.getLs();
-    private ImageIcon qeSunStone=cl.getQeSunStone();
     private ImageIcon sparks=cl.getSparks();
     private ImageIcon[] l2b3Variation=cl.getL2b3Variation();
     private int l2b8wait=0;
     private int sparkWait=0;//Sparks l2b2
     private int rope=0;
-    private Timer fade;
     private LevelEnd l3=new LevelEnd(3);
     private Thread levelEndFade=new Thread(l3);
     private CasualCaving cc;
-    private SunStoneChoice ssc=new SunStoneChoice(cc);
-    Level2(Timer f,Player p,HeightMap heightMap,CasualCaving cc){
-        fade=f;
+    private SunStoneChoice ssc;
+    Level2(Player p,HeightMap heightMap,CasualCaving cc){
         this.p=p;
         this.heightMap=heightMap;
         this.cc=cc;
+        ssc=new SunStoneChoice(cc);
     }
     void reset(){
         l2b8wait=0;
@@ -209,15 +207,6 @@ class Level2 {
         }
         ssc.startFade();
         ssc.draw(g);
-        /*g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,qe));
-        g.drawImage(qeSunStone.getImage(),0,0,null);*/
-        /*if((key.contains(VK_E)||key.contains(VK_Q))&&!qeChoice){
-            fade.start();
-            qeChoice=true;
-            if(key.contains(VK_E)){
-                choice=true;
-            }
-        }*/
     }
 
     private void l2b8(Graphics g){
@@ -225,7 +214,6 @@ class Level2 {
             firstRun[1][7]=true;
             p.setPlayerX(722);
             p.drawPlayer(g);
-            fade.stop();
             acf[1]=1;
         }
         g.drawImage(levels[phase-2][5].getImage(),0,0,null);

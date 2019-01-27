@@ -10,7 +10,6 @@ class Level1 {
     private CasualCaving cc;
     private StringDraw sd=new StringDraw();
     private HeightMap heightMap;
-    private Timer fade;
     private CavingLoader cl=new CavingLoader();
     private Player p;
     private Crowd crowd;
@@ -29,7 +28,7 @@ class Level1 {
     private Rectangle logHitbox=new Rectangle(Frame.panelX-320,520,log.getIconWidth(),log.getIconHeight());
     private LevelEnd l2=new LevelEnd(2);
     private Thread levelEndFade=new Thread(l2);
-    Level1(Timer f,Player p,Crowd crowd,HeightMap heightMap,CasualCaving casualCaving){fade=f;this.p=p;this.crowd=crowd;this.heightMap=heightMap;cc=casualCaving;}
+    Level1(Player p,Crowd crowd,HeightMap heightMap,CasualCaving casualCaving){this.p=p;this.crowd=crowd;this.heightMap=heightMap;cc=casualCaving;}
     void reset(){
         crowdrMax=1;
         logVisible=true;
@@ -151,7 +150,6 @@ class Level1 {
     private void l1b4(Graphics g){
         if(crowdrMax<3&&!logVisible){
             crowdrMax=3;
-            fade.stop();
             crowd.crowdrPosReset();
         }
         if(!bridgeBuilt){
@@ -178,7 +176,6 @@ class Level1 {
     private void l1b5(Graphics g){
         if(crowdrMax<4){
             crowdrMax=4;
-            fade.start();
             crowd.crowdrPosReset();
         }
         if(crowdrMax==4) {
@@ -188,7 +185,6 @@ class Level1 {
     }
 
     private void l1b6(Graphics g){
-        fade.stop();
         if(crowdrMax<5){
             crowdrMax=5;
             //fade.start();
@@ -219,7 +215,6 @@ class Level1 {
     private void l1b7(Graphics g){
         if(!firstRun[0][6]){
             firstRun[0][6]=true;
-            fade.start();
             p.setPlayerX(400);
         }
         g.drawImage(tents[3].getImage(),350,350,null);//Aqua lavender red mint orange (0,1,2,3,4)
