@@ -18,6 +18,7 @@ class Crowd implements Runnable{
     private volatile int crowdrFrame=1;
     private int crowdrFrameWait=0;
     private Thread crowdPhys=new Thread(this);
+    private boolean bridgeBuilt=false;
     Crowd(){crowdPhys.start();}
 
     int getCrowdrPosInt(){
@@ -29,6 +30,7 @@ class Crowd implements Runnable{
     }
 
     void reset(){
+        bridgeBuilt=false;
         firstCrowdrFrame=false;
         crowdrFrameDir=true;
         crowdrFrame=1;
@@ -38,7 +40,11 @@ class Crowd implements Runnable{
     public void run(){
         while(true) {
             if((subPhase>=1&&subPhase<=5)&&crowdrPos<50&&!pause){
-                crowdrV=10;
+                if(subPhase==3){
+                    if(bridgeBuilt)crowdrV=10;
+                }else {
+                    crowdrV = 10;
+                }
             }
             crowdrPos += crowdrV;
             crowdrV -= gravity;
@@ -51,7 +57,11 @@ class Crowd implements Runnable{
         }
     }
 
-    void frameCalc(){
+    void continueBridge(){
+        bridgeBuilt=true;
+    }
+
+    private void frameCalc(){
         final int crowdrFrameWaitMax=10;
         if(!firstCrowdrFrame) {
             crowdrFrame = 1;

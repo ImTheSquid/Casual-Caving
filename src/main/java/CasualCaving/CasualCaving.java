@@ -287,7 +287,8 @@ public class CasualCaving extends JPanel implements Runnable{
         if(phase==1&&titleA>0) {
             if (titleScreen.getStartButton().contains(p)) {
                 gameStart = true;
-                if(titleScreen.isRunnable())titleScreen.startFade();
+                if(debug)phase=2;
+                else if(titleScreen.isRunnable())titleScreen.startFade();
             }
             if(titleScreen.getQuitButton().contains(p)){
                 System.exit(0);
