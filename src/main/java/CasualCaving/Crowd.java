@@ -19,7 +19,7 @@ class Crowd implements Runnable{
     private int crowdrFrameWait=0;
     private Thread crowdPhys=new Thread(this);
     private boolean bridgeBuilt=false;
-    Crowd(){crowdPhys.start();}
+    Crowd(){}
 
     int getCrowdrPosInt(){
         return crowdrPos;
@@ -29,7 +29,12 @@ class Crowd implements Runnable{
         crowdrPos=-1*crowdr[getCrowdrPos()].getIconWidth()-50-cart.getIconWidth();
     }
 
+    void startCalc(){
+        if(!crowdPhys.isAlive())crowdPhys.start();
+    }
+
     void reset(){
+        crowdPhys=new Thread(this);
         bridgeBuilt=false;
         firstCrowdrFrame=false;
         crowdrFrameDir=true;
@@ -38,7 +43,7 @@ class Crowd implements Runnable{
     }
 
     public void run(){
-        while(true) {
+        while((phase==2&&subPhase<=5)||crowdrV>0) {
             if((subPhase>=1&&subPhase<=5)&&crowdrPos<50&&!pause){
                 if(subPhase==3){
                     if(bridgeBuilt)crowdrV=10;

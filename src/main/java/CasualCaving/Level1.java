@@ -97,6 +97,7 @@ class Level1 {
     private void l1b2(Graphics g){
         if(crowdrMax==1) {
             if (p.getPlayerX() > Frame.panelX / 2) {
+                crowd.startCalc();
             }
             g.drawImage(crowdr[crowd.getCrowdrPos()].getImage(), crowd.getCrowdrPosInt(), 350, null);
             g.drawImage(cart.getImage(), crowd.getCrowdrPosInt() + 50 + crowdr[crowd.getCrowdrPos()].getIconWidth(), 350, null);
