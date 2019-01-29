@@ -158,7 +158,7 @@ class Level1 {
             }
         }else{
             g.drawImage(bridge.getImage(),540,590,null);
-            //fade.start();
+            crowd.continueBridge();
         }
         if(p.getPlayerX()>325&&!bridgeBuilt&&hasWood){
             sd.drawString(g,"Press 'E' to place bridge",600,500,800,constantia,Color.white);
