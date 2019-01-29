@@ -235,13 +235,11 @@ public class CasualCaving extends JPanel implements Runnable{
                 l3.level3(g,g2d);
                 break;
         }
+        p.drawHealth(g);
         if(!Frame.j.isActive()&&phase>1&&!debug){
             pause=true;
         }
         if (phase > 1&&!pause) {//Deals with pause implementation
-            if(acf[phase-2]<1&&acf[phase-2]>0){
-                //fade.start();
-            }
             p.playerHandle(g);
         }else if(phase>1){//Draws the pause menu screen
             p.drawPlayer(g);
