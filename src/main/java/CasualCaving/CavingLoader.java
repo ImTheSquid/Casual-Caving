@@ -17,6 +17,8 @@ class CavingLoader {
             {new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Lantern Light/HaroldLLLeft.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Lantern Light/HaroldLLLeftW1.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Lantern Light/HaroldLLLeftW2.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Lantern Light/HaroldLLLeftW3.png"))},
             {new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Lantern Light/HaroldRope.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Lantern Light/HaroldRopeW1.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Lantern Light/HaroldRopeW2.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Lantern Light/HaroldRopeW3.png"))},
             {new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Lantern Light/HaroldRopeLeft.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Lantern Light/HaroldRopeLeftW1.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Lantern Light/HaroldRopeLeftW2.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Lantern Light/HaroldRopeLeftW3.png"))}};
+    private final ImageIcon[][] haroldAttack={{new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Attack/HaroldA1.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Attack/HaroldA2.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Attack/HaroldA3.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Attack/HaroldA4.png"))},
+            {new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Attack/HaroldA1Left.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Attack/HaroldA2Left.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Attack/HaroldA3Left.png")),new ImageIcon(this.getClass().getResource("/CasualCaving/Harold/Attack/HaroldA4Left.png"))}};
     private final ImageIcon titleIcon= new ImageIcon(this.getClass().getResource("/CasualCaving/Title/WindowIcon.png"));
     private final ImageIcon lunan=new ImageIcon(this.getClass().getResource("/CasualCaving/Title/LunanLogo.png"));
     private final ImageIcon load=new ImageIcon(this.getClass().getResource("/CasualCaving/Title/LoadScreen.png"));
@@ -49,6 +51,8 @@ class CavingLoader {
     ImageIcon[][] getHarold(){
         return harold;
     }
+
+    ImageIcon[][] getHaroldAttack(){return haroldAttack;}
 
     ImageIcon getTitleIcon(){
         return titleIcon;

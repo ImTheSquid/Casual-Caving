@@ -4,7 +4,7 @@ package CasualCaving;
  * This class handles everything relating to battle and battle mechanics
  */
 
-class BattleHandler{
+public class BattleHandler{
     private CasualCaving cc;
     BattleHandler(CasualCaving cc){this.cc=cc;}
     //Melee only
