@@ -6,7 +6,7 @@ import java.awt.event.KeyEvent;
 
 import static CasualCaving.CasualCaving.*;
 
-class Player extends Entity implements Runnable{
+class Player implements Runnable{
     private HeightMap heightMap;
     private CavingLoader cl=new CavingLoader();
     private ImageIcon[][] harold=cl.getHarold();
@@ -30,15 +30,14 @@ class Player extends Entity implements Runnable{
     private boolean turnAround=false;
     private int turnAroundPhase=0;
     private volatile boolean movement=true;
+    private int health=2;
     private CasualCaving cc;
     private Thread physics=new Thread(this);
     Player(BattleHandler battleHandler,HeightMap heightMap,CasualCaving cc){
-        super(2,3);
         this.battleHandler=battleHandler;
         pickaxe=new Pickaxe(battleHandler,this);
         this.heightMap=heightMap;
         this.cc=cc;
-        super.setHitbox(playerHitbox);
     }
 
     void startPhysics(){if(!physics.isAlive())physics.start();}
@@ -266,7 +265,7 @@ class Player extends Entity implements Runnable{
 
     void drawHealth(Graphics g){
         if(phase<2)return;
-        for(int i=0;i<super.getHealth();i++) {
+        for(int i=0;i<health;i++) {
             g.drawImage(cl.getHeart().getImage(), 5+(45*i), Frame.panelY - 85, 40, 40, null);
         }
     }
@@ -301,9 +300,5 @@ class Player extends Entity implements Runnable{
     void attack(){
         pickaxe.attack(velocityX);
     }
-
-    int getHealth(){return super.getHealth();}
-
-    void setHealth(int health){super.setHealth(health);}
 
 }

@@ -5,7 +5,7 @@ import java.awt.*;
 
 import static CasualCaving.CasualCaving.*;
 
-class BlueGolem extends Entity{
+class BlueGolem{
     private HeightMap heightMap;
     private int posX;
     private int posY;
@@ -23,13 +23,11 @@ class BlueGolem extends Entity{
     private int frameWait=0;//Controls how long to stay on each frame
     private final int frameWaitMax=3;
     BlueGolem(int spawnX,int spawnY,String ID,HeightMap heightMap){
-        super(10,10);
         posX=spawnX;
         posY=spawnY;
         uniqueID=ID;
         this.heightMap=heightMap;
         velX=10;
-        super.setHitbox(golemHitbox);
     }
 
     void golemAI(Graphics g){

@@ -1,5 +1,5 @@
 package CasualCaving;
 
-public interface Entity {
+public interface Weapon {
 
 }
