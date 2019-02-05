@@ -6,7 +6,8 @@ import java.awt.event.KeyEvent;
 
 import static CasualCaving.CasualCaving.*;
 
-class Player implements Runnable{
+class Player implements Runnable,Entity{
+    private Position pos;
     private HeightMap heightMap;
     private CavingLoader cl=new CavingLoader();
     private ImageIcon[][] harold=cl.getHarold();
@@ -102,6 +103,7 @@ class Player implements Runnable{
             } else if (velocityX < 0) {
                 velocityX += gravity;
             }
+            pos.setCoord(playerX,playerY);
             frameCalc();
             try {
                 Thread.sleep(25);
@@ -301,4 +303,18 @@ class Player implements Runnable{
         pickaxe.attack(velocityX);
     }
 
+    @Override
+    public int getHealth() {
+        return 0;
+    }
+
+    @Override
+    public void setHealth(int h) {
+
+    }
+
+    @Override
+    public Position getPosition() {
+        return pos;
+    }
 }

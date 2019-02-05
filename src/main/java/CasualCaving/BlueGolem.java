@@ -5,7 +5,8 @@ import java.awt.*;
 
 import static CasualCaving.CasualCaving.*;
 
-class BlueGolem{
+class BlueGolem implements Entity{
+    private Position pos=new Position();
     private HeightMap heightMap;
     private int posX;
     private int posY;
@@ -22,6 +23,7 @@ class BlueGolem{
     private boolean firstFrame=true;//Controls whether to start at first frame after being still
     private int frameWait=0;//Controls how long to stay on each frame
     private final int frameWaitMax=3;
+    private int health=10,maxHealth=10;
     BlueGolem(int spawnX,int spawnY,String ID,HeightMap heightMap){
         posX=spawnX;
         posY=spawnY;
@@ -53,6 +55,7 @@ class BlueGolem{
             posY += velY;
             velY += gravity;
         }
+        pos.setCoord(posX,posY);
     }
     private void drawGolem(Graphics g){
         int frameType=3;//3 if normal walking, 4 for attack animation
@@ -110,5 +113,20 @@ class BlueGolem{
 
     String getUniqueID() {
         return uniqueID;
+    }
+
+    @Override
+    public int getHealth() {
+        return health;
+    }
+
+    @Override
+    public void setHealth(int h) {
+        if(h<maxHealth)health=h;
+    }
+
+    @Override
+    public Position getPosition() {
+        return pos;
     }
 }
